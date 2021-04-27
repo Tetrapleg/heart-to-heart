@@ -50,8 +50,8 @@ export const Main = ({ children, ...props }) => {
   const [bgImage, setBgImage] = useState(null);
 
   useEffect(() => {
-    const newDB = arrDB.find(i => i.link === location);
-    setPageName(newDB.menuItem);
+    const newDB = arrDB.filter(i => i.link === location);
+    setPageName(newDB[0].menuItem);
     setBgImage(null);
     const apiKey = '20475424-74f8f943b4b24c8d3e523c57e';
     const animals = () => {
@@ -80,7 +80,7 @@ export const Main = ({ children, ...props }) => {
             });
     
   }, [location]);
-  
+
   return(
   <MainContent bgImage={bgImage}>
     {pageName && <p>{pageName}</p>}
