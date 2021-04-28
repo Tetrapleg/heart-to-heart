@@ -7,7 +7,7 @@ import { dbMenu } from './../DB';
 const nodbPages = [
   {
     menuItem: 'Главная страница',
-    link: '',
+    link: 'heart-to-heart',
     icon: '',
   },
   {
@@ -51,6 +51,7 @@ export const Main = ({ children, ...props }) => {
 
   useEffect(() => {
     const newDB = arrDB.filter(i => i.link === location);
+    console.log(location);
     setPageName(newDB[0].menuItem);
     setBgImage(null);
     const apiKey = '20475424-74f8f943b4b24c8d3e523c57e';

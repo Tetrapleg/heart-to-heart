@@ -64,7 +64,7 @@ const PictImg = styled.img`
 `;
 
 export const Logo = () => (
-  <LogoWrapper href="/">
+  <LogoWrapper href="/heart-to-heart">
     <LogoImg>
       <HeartImg src={heart} alt="HertImg"/>
       <PictImg src={pictLogo} alt="LogoImg"/>
