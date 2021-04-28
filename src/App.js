@@ -11,7 +11,7 @@ function App() {
       <GlobalStyle />
       <ContentWrapper>
         <Header />
-        <Main />
+        {/* <Main /> */}
         <Footer />
       </ContentWrapper>
     </>

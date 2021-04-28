@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import Preloader from '../AnimationElements/Preloader';
-import { dbMenu } from './../DB';
+import { dbMenu } from '../DB';
 
 const nodbPages = [
   {
