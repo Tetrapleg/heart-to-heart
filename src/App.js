@@ -1,8 +1,8 @@
 import { GlobalStyle } from './components/styles/GlobalStyles';
-import { Header } from './components/Header/Header';
-import { Footer } from './components/Footer/Footer';
-import { ContentWrapper } from './components/ContentWrapper/ContentWrapper';
-import { Main } from './components/Main/Main';
+import { Header } from './components/header/Header';
+import { Footer } from './components/footer/Footer';
+import { ContentWrapper } from './components/contentWrapper/ContentWrapper';
+import { Main } from './components/main/Main';
 
 function App() {
 
@@ -11,7 +11,7 @@ function App() {
       <GlobalStyle />
       <ContentWrapper>
         <Header />
-        {/* <Main /> */}
+        <Main />
         <Footer />
       </ContentWrapper>
     </>

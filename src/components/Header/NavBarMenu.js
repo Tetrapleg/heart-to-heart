@@ -1,8 +1,7 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { SwitchTransition, CSSTransition } from 'react-transition-group'; 
-import { ContentContainer } from '../HTMLContainer/ContentContainer';
+import { ContentContainer } from '../htmlContainer/ContentContainer';
 import { DogSvg, 
         BeforeMakeFriendSvg,
         NeedOfVeterinarySvg,
@@ -13,7 +12,7 @@ import { DogSvg,
         NewsAboutUsSvg,
         FinancialReportsSvg,
         YourPetIsMissingSvg,
-        AttachAnimalSvg } from './../SvgIcons/SvgIcons';
+        AttachAnimalSvg } from '../svgIcons/SvgIcons';
 
 const componentsIconsNavBar = {
   DogSvg: DogSvg,

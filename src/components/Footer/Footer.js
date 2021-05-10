@@ -1,7 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 import YandexShare from 'react-yandex-share';
-import { ContentContainer } from '../HTMLContainer/ContentContainer';
+import { ContentContainer } from '../htmlContainer/ContentContainer';
 
 const FooterWrapper = styled.footer`
   display: flex;

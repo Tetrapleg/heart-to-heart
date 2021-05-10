@@ -1,12 +1,12 @@
-import React, { createRef, useEffect, useState } from 'react';
+import { createRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { FluidContainer } from '../HTMLContainer/FluidContainer';
+import { FluidContainer } from '../htmlContainer/FluidContainer';
 import topBanner from '../../images/topBanner.jpg';
-import { ContentContainer } from '../HTMLContainer/ContentContainer';
-import { Logo } from '../AnimationElements/Logo';
+import { ContentContainer } from '../htmlContainer/ContentContainer';
+import { Logo } from '../animationElements/Logo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVk, faYandex, faOdnoklassniki, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { SocialLink } from '../SocialLink/SocialLink';
+import { SocialLink } from '../socialLink/SocialLink';
 import instagramIcon from '../../images/instagram.svg';
 import { NavMenu } from './NavMenu';
 
@@ -137,7 +137,7 @@ export const Header = () => {
                     <li>
                       <SocialLink
                         color='rgb(255,0,0)'
-                        href='https://zen.yandex.ru/serdcem_k_serdcy_46'
+                        href='https://zen.yandex.ru/id/605721184b415e622e1e6092'
                       >
                         <FontAwesomeIcon icon={faYandex} size="lg" fixedWidth />
                       </SocialLink>

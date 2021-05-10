@@ -1,6 +1,6 @@
-import React, { useState, createRef, useLayoutEffect, useEffect } from 'react';
+import { useState, createRef, useLayoutEffect, useEffect } from 'react';
 import styled from 'styled-components';
-import { DogAndCatSvg, DunnoSvg, HelpAnimalsSvg, ShouldSvg, ThinkerSvg } from '../SvgIcons/SvgIcons';
+import { DogAndCatSvg, DunnoSvg, HelpAnimalsSvg, ShouldSvg, ThinkerSvg } from '../svgIcons/SvgIcons';
 import { dbMenu } from '../DB';
 import { NavBarMenu } from './NavBarMenu';
 import { NavBarMenuOverlay } from './NavBarMenuOverlay';
@@ -79,7 +79,6 @@ const NavMenuLi = styled.li`
     & span {
       color: rgba(204,204,255,1);
       filter: drop-shadow(0 0 2px rgba(204,204,255,0.5));
-      font-weight: 500;
       & svg {
         
         & path {

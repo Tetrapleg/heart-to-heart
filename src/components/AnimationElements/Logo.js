@@ -1,4 +1,3 @@
-import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import pictLogo from '../../images/pictLogo.png';
 import heart from '../../images/heart.png';
@@ -64,7 +63,7 @@ const PictImg = styled.img`
 `;
 
 export const Logo = () => (
-  <LogoWrapper href="/heart-to-heart">
+  <LogoWrapper href="/">
     <LogoImg>
       <HeartImg src={heart} alt="HertImg"/>
       <PictImg src={pictLogo} alt="LogoImg"/>

@@ -59,16 +59,36 @@ export const dbMenu = {
 					icon: 'YouFoundAnimalSvg',
 				},
 				{
-					menuItem: 'Как пристраивать животное',
+					menuItem: 'Как пристраивать животное?',
 					link: 'how_to_attach_an_animal',
 					icon: 'AttachAnimalSvg',
 				},
 				{
-					menuItem: 'Что делать, если Вы нашли животное, нуждающееся в ветеринарной помощи',
+					menuItem: 'Что делать, если Вы нашли животное, нуждающееся в ветеринарной помощи?',
 					link: 'you_find_an_animal_in_need_of_veterinary_care',
 					icon: 'NeedOfVeterinarySvg',
 				},
 			]
 		},
-	}
+	},
+	sliders: {
+		mainSlider: [
+			{
+				title: 'Лечим, стерилизуем бездомных животных, пристраиваем в добрые руки',
+				img: '/main_page_img/main_slider/our-children.jpg',
+			},
+			{
+				title: 'Привлекаем детей и подростков к волонтерской деятельности',
+				img: '/main_page_img/main_slider/helpers.jpg',
+			},
+			{
+				title: 'Наша организация вызывает доверие граждан от мала до велика!',
+				img: '/main_page_img/main_slider/next.jpg',
+			},
+			{
+				title: 'Сотни наших животных обрели дом, в том числе - в удаленных от нас регионах',
+				img: '/main_page_img/main_slider/animal-at-home.jpg',
+			},
+		],
+	},
 };

@@ -1,4 +1,3 @@
-import React from 'react';
 import styled, { css, keyframes } from 'styled-components';
 
 const skCircleBounceDelay = keyframes`
@@ -185,7 +184,7 @@ const SkCircle12 = styled.div`
   }
   `;
 
-const Preloader = () => (
+export const Preloader = () => (
   <PreloadWrapper>
     <Preload>
       <SkCircleBounce>
@@ -204,6 +203,4 @@ const Preloader = () => (
       </SkCircleBounce>
     </Preload>
   </PreloadWrapper>
-)
-
-export default Preloader;
+);
