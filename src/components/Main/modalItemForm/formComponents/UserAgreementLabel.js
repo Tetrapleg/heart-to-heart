@@ -1,7 +1,7 @@
 import { FormLabel } from '@material-ui/core';
-import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { PrivacyPolicy } from '../../../PrivacyPolicy';
+import { setFullSizePDF } from '../../../../reducers/displayingFullSizeContentReduser';
 
 const LaberWrapper = styled.span`
   font-size: 16px;
@@ -15,32 +15,22 @@ const ButtonPrivPolicy = styled.button`
     background-color: transparent;
     display: inline-block;
     cursor: pointer;
-    &:hover{
-      color: green;
-    }
 `;
 
 export const UserAgreementLabel = ({ hasUserAgreement }) => {
-  const [ statePrivPolicy, setStatePrivPolicy ] = useState(false);
+  const dispatch = useDispatch();
 
-  const togglePrivacyPolicy = () => {
-    setStatePrivPolicy(!statePrivPolicy)
-  };
-  
   return (
     <LaberWrapper>
       Я согласен на обработку  
       <ButtonPrivPolicy 
         type="button" 
-        onClick={togglePrivacyPolicy}
+        onClick={()=>dispatch(setFullSizePDF("privacy_policy_fullsize.pdf"))}
       >персональных данных</ButtonPrivPolicy>
       <FormLabel
         required
         error={hasUserAgreement}
       />
-      {statePrivPolicy && <PrivacyPolicy 
-                            togglePrivacyPolicy={togglePrivacyPolicy}
-                          />}
     </LaberWrapper>
   )
 };

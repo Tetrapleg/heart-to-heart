@@ -22,7 +22,6 @@ const AsideWrapper = styled.aside`
 
 export const Aside = ({ children, ...props }) => {
 
-  console.log( props.side);
   return (
   <AsideWrapper props={props}>
     {children}

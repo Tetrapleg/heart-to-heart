@@ -1,26 +1,40 @@
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import { createRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { CloseModalButton } from '../../commonComponent/CloseModalButton';
+import { SocialMenu } from '../../commonComponent/SocialMenu';
 import { DataProvider } from "./DataContext";
 import { ItemForm } from "./ItemForm";
 
-const Overlay = styled.div`
+const ModalWrapper = styled.section`
   position: fixed;
   z-index: 899;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
   background-color: rgba(0,0,0,0.7);
+  backdrop-filter: blur(0.2em);
   display: flex;
   justify-content: center;
-  align-items: center;
+`;
+
+const Overlay = styled.div`
+  height: 100vh;
+  width: 100%;
+  padding: 1em 0;
+  display: flex;
+  justify-content: center;
+  align-items: ${({ ...props }) => props.alignAttribut ? "center" : "flex-start"};
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 `;
 
 const Modal = styled.div`
   width: 90%;
-  height: 90%;
+  height: fit-content;
   max-width: 700px;
-  max-height: 500px;
-  background-color: #f4eff7;
+  background-color: #E6E6FA;
   border-radius: 15px;
   padding: 15px;
   display: flex;
@@ -35,7 +49,7 @@ const TopWrapper = styled.div`
 
 const TopTitle = styled.p`
   padding-left: 45px;
-  padding-top: 20px;
+  padding-top: 2em;
   width: calc(100% - 50px);
   text-align: center;
   font-size: 20px;
@@ -49,41 +63,15 @@ const TopTitle = styled.p`
   }
 `;
 
-const ModalCloseBtn = styled.div`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #e7f2df;
-  border: 3px solid rgb(68,189,125);
-  position: relative;
-  cursor: pointer;
-  transition: all .3s;
-  &::after {
-    position: absolute;
-    content: '';
-    width: 30px;
-    height: 3px;
-    background-color: rgb(68,189,125);
-    top: 21px;
-    left: 7px;
-    transform: rotate(45deg);
-  }
-  &::before {
-    position: absolute;
-    content: '';
-    width: 30px;
-    height: 3px;
-    background-color: rgb(68,189,125);
-    top: 21px;
-    left: 7px;
-    transform: rotate(-45deg);
-  }
-  &:hover {
-    transform: scale(1.1)
-  }
+const SocialMenuWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 export const ModalItemForm = ({ toggleModal }) => {
+  const [alignAttribut, setAlignAttribut] = useState(true);
+  const overlayRef = createRef();
+  const modalRef = createRef();
 
   const closeModal = (e) => {
     if (e.target.id === 'overlay') {
@@ -91,27 +79,60 @@ export const ModalItemForm = ({ toggleModal }) => {
     };
   };
 
+  useEffect(() => {
+    const clearScroll = overlayRef.current;
+    
+    if(overlayRef.current) {
+      disableBodyScroll(overlayRef.current);
+    }
+
+    return () => enableBodyScroll(clearScroll);
+  }, [overlayRef]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const modal = modalRef.current;
+
+      if(modal) {
+        const heightDifference = window.innerHeight - modal.offsetHeight - 32 >= 0;
+        if(alignAttribut !== heightDifference) {
+          setAlignAttribut(!alignAttribut);
+        }
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [alignAttribut, modalRef]);
+  
   return (
-    <Overlay
-      id="overlay"
-      onClick={closeModal}
-    >
-      <Modal>
-        <TopWrapper>
-          <TopTitle>
-            Наши телефоны: <span>(8332) 22-00-03,</span> <span>(8332) 41-04-03</span>
-          </TopTitle>
-          <ModalCloseBtn
-            onClick={toggleModal}
-          />
-        </TopWrapper>
-        <DataProvider>
-          <ItemForm toggleModal={toggleModal}/>
-        </DataProvider>
-        <div>
-          scial
-        </div>
-      </Modal>
-    </Overlay>
+    <ModalWrapper >
+      <Overlay 
+        ref={overlayRef}
+        id="overlay"
+        onClick={closeModal}  
+        alignAttribut={alignAttribut}
+      >
+        <Modal 
+          ref={modalRef}
+        >
+          <TopWrapper >
+            <TopTitle >
+              <span>Наш e-mail: serdcemkserdcy@yandex.ru</span>
+            </TopTitle>
+            <CloseModalButton
+              closeModal={toggleModal}
+            />
+          </TopWrapper>
+          <DataProvider >
+            <ItemForm toggleModal={toggleModal}/>
+          </DataProvider>
+          <SocialMenuWrapper >
+            <SocialMenu />
+          </SocialMenuWrapper>
+        </Modal>
+      </Overlay>
+    </ModalWrapper>
   )
 };

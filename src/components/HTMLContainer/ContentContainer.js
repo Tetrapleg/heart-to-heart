@@ -5,6 +5,7 @@ const Container = styled.div`
   max-width: 1200px;
   padding: 0 15px;
   height: inherit;
+  width: 100%;
 `;
 
 export const ContentContainer = ({ children }) => (

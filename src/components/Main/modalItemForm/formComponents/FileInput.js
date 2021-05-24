@@ -36,19 +36,19 @@ export const FileInput = ({ control, name }) => {
       control={control}
       name={name}
       defaultValue={[]}
-      render={({ onChange, onBlur, value }) => (
+      render={({ field }) => (
         <>
-          <Dropzone onDrop={onChange}>
+          <Dropzone onDrop={field.onChange} >
             {({ getRootProps, getInputProps }) => (
               <Paper className={styles.root} variant="outlined" {...getRootProps()}>
                 <CloudUpload className={styles.icon} />
-                <input {...getInputProps()} name={name} onBlur={onBlur}/>
+                <input {...getInputProps()} name={field.name} onBlur={field.onBlur}/>
                 <DescrTitle>Перетащите сюда файлы, или выберите из списка.</DescrTitle>
               </Paper>
             )}
           </Dropzone>
           <List>
-            {value.map((f, index) => (
+            {field.value.map((f, index) => (
               <ListItem key={index}>
                 <ListItemIcon>
                   <InsertDriveFile />

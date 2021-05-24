@@ -7,30 +7,7 @@ import { FormContainer } from './formComponents/FormContainer';
 import { InputWrapper } from './formComponents/InputWrapper';
 import Swal from 'sweetalert2';
 import { Preloader } from '../../animationElements/Preloader';
-
-const ResultButton = styled.button`
-  color: rgb(255, 255, 255);
-  border: 5px solid rgb(68, 189, 125);
-  background-color: rgb(68, 189, 125);
-  border-radius: 50px;
-  display: inline-block;
-  font-family: 'Roboto',Arial,sans-serif;
-  height: 40px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  width: 100%;
-  font-size: 16px;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  font-weight: 700;
-  transition: all .5s;
-  cursor: pointer;
-  &:hover {
-    transform: scale(1.01);
-    box-shadow: rgba(0, 0, 0, 0.5) 10px 10px 15px 5px;
-  }
-`;
+import { PrimaryButton } from './formComponents/PrimaryButton';
 
 const OnStartButton = styled.button`
   font-size: 14px;
@@ -61,7 +38,7 @@ export const Result = ({ setStateStep, toggleModal }) => {
   const entries = Object.entries(data).filter((entry) => entry[0] !== "files" 
                                                 && entry[0] !== "userAgreement"
                                                 && entry[0] !== "hasPhone"
-                                                && entry[1] !== "");
+                                                && entry[1] !== undefined);
   const {files} = data;
 
   const onSubmit = async () => {
@@ -97,7 +74,7 @@ export const Result = ({ setStateStep, toggleModal }) => {
   const startEdit = () => {
     setStateStep(1);
   };
-
+ 
   return (
     <FormContainer>
       <InputWrapper>
@@ -149,13 +126,14 @@ export const Result = ({ setStateStep, toggleModal }) => {
           </>
         )}
       </InputWrapper>
-      <ResultButton 
+      <PrimaryButton
         onClick={onSubmit}
-      >Отправить</ResultButton>
+      >Отправить</PrimaryButton>
       <OnStartButton
         onClick={startEdit}
       >Вернуться к началу</OnStartButton>
       {statePreloader && <Preloader />}
     </FormContainer>
+    
   );
 };

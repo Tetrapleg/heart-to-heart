@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ItemFormContainer = styled.main`
+const ItemFormContainer = styled.div`
   margin: 10px 40px 0;
   height: 100%;
   display: flex;

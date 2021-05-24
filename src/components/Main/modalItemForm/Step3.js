@@ -20,7 +20,7 @@ export const Step3 = ({ stateStep, setStateStep}) => {
     setValues(data);
   };
 
-  return <FormContainer>
+  return (<FormContainer>
     <Form onSubmit={handleSubmit(onSubmit)}>
       <TextField
           variant="outlined"
@@ -29,7 +29,7 @@ export const Step3 = ({ stateStep, setStateStep}) => {
           rows="5"
           rowsMax="9"
           fullWidth
-          inputRef={register}
+          {...register("message")}
           id="message"
           type="text"
           label="Ваше сообщение"
@@ -38,5 +38,5 @@ export const Step3 = ({ stateStep, setStateStep}) => {
       <PrimaryButton>Дальше</PrimaryButton>
     </Form>
     <NumberOfStep stateStep={stateStep} />
-  </FormContainer>
+  </FormContainer>)
 };

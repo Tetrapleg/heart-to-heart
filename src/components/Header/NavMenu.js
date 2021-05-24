@@ -80,7 +80,6 @@ const NavMenuLi = styled.li`
       color: rgba(204,204,255,1);
       filter: drop-shadow(0 0 2px rgba(204,204,255,0.5));
       & svg {
-        
         & path {
           fill: rgba(204,204,255,1);
         }
@@ -198,7 +197,6 @@ export const NavMenu = ({ scrollTop }) => {
   useEffect(() => {
     const navMenu = elemRef.current.parentElement;
     const handleLoaded = () => {
-      
       if(navMenu){
         const navBarMenuHeight = navMenu.getBoundingClientRect().bottom;
 

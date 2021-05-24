@@ -41,7 +41,9 @@ const TitleImg = styled.div`
 `;
 
 const MainTitle = styled.h1`
-  font-weight: 100;
+  font-weight: 300;
+  word-spacing: 0.15em;
+  letter-spacing: 0.05em;
   line-height: 1.5;
   color: #fff;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.5), 0 0 0.1em red;
@@ -54,7 +56,9 @@ const MainTitle = styled.h1`
 `; 
 
 const ContentDescr = styled.p`
-  font-weight: 100;
+  font-weight: 300;
+  word-spacing: 0.15em;
+  letter-spacing: 0.05em;
   line-height: 1.5;
   color: #fff;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.5), 0 0 0.1em red;

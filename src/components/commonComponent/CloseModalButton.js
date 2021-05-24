@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Button = styled.button`
+const CloseButton = styled.div`
   position: relative;
   width: 2.5em;
   height: 2.5em;
@@ -10,25 +10,35 @@ const Button = styled.button`
               inset rgb(0 0 0 / 30%) -3px -3px 8px 5px, 
               inset rgb(255 255 255 / 50%) 5px 5px 8px 5px, 
               1px 1px 1px rgb(255 255 255 / 10%);
-  color: rgba(255,21,49,0.8);
-  border-radius: 0.3em;
-  display: inline-block;
-  font-family: 'Roboto';
+  border-radius: 50%;
   margin-top: 1em;
+  margin-left: auto;
+  margin-right: 1em;
   margin-bottom: 1em;
-  width: 100%;
-  font-size: 1rem;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  font-weight: 700;
-  transition-property: color, filter;
-  transition-duration: 0.2s;
   cursor: pointer;
+  &::before,
+    ::after {
+      position: absolute;
+      content: "";
+      width: 1.75em;
+      height: 0.1em;
+      background-color: rgba(255,21,49,0.7);
+      top: 47%;
+      left: 12%;
+    }
+  &::before{
+    transform: rotate(45deg);
+  }
+  &::after{
+    transform: rotate(-45deg);
+  }
 
   &:hover {
-    color: rgba(255,21,49,1);
-    text-shadow: 0 0 2px rgba(255,0,0,0.7);
+  &::before,
+    ::after {
+      background-color: rgba(255,21,49,1);
+      filter: drop-shadow(0 0 4px rgba(255,0,0,0.7));
+    }
   }
 
   &:active {
@@ -40,14 +50,6 @@ const Button = styled.button`
   }
 `;
 
-export const PrimaryButton = ({ children, ...props }) => {
-
-  return (
-    <Button
-      type="submit"
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
+export const CloseModalButton = ({ closeModal }) => (
+  <CloseButton onClick={closeModal}></CloseButton>
+);

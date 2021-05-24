@@ -31,13 +31,27 @@ const skChildBefore = css`
             animation: ${skCircleBounceDelay} 1.2s infinite ease-in-out;
 `;
 
-const PreloadWrapper = styled.div`
-  width: 10vh;
-  height: 10vh;
-  position: absolute;
+const PreloaderWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 900;
+  background-color: rgba(0,0,0,0.5);
 `;
 
-const Preload = styled.div`
+const PreloaderItem = styled.div`
+  width: 10vmax;
+  height: 10vmax;
+  max-width: 6rem;
+  max-height: 6rem;
+`;
+
+const PreloaderInner = styled.div`
   flex: 1 1 25%;
   left: 0;
   top: 0;
@@ -45,13 +59,12 @@ const Preload = styled.div`
   height: 100%;
   display: flex;
   border-radius: 50%;
-  position: absolute;
   background-color: rgba(204,204,255, 0.6);
 `;
 
 const SkCircleBounce = styled.div`
-  width: 7vh;
-  height: 7vh;
+  width: 70%;
+  height: 70%;
   position: relative;
   margin: auto;
 `;
@@ -185,22 +198,24 @@ const SkCircle12 = styled.div`
   `;
 
 export const Preloader = () => (
-  <PreloadWrapper>
-    <Preload>
-      <SkCircleBounce>
-        <SkCircle1 />
-        <SkCircle2 />
-        <SkCircle3 />
-        <SkCircle4 />
-        <SkCircle5 />
-        <SkCircle6 />
-        <SkCircle7 />
-        <SkCircle8 />
-        <SkCircle9 />
-        <SkCircle10 />
-        <SkCircle11 />
-        <SkCircle12 />
-      </SkCircleBounce>
-    </Preload>
-  </PreloadWrapper>
+  <PreloaderWrapper>
+    <PreloaderItem >
+      <PreloaderInner>
+        <SkCircleBounce>
+          <SkCircle1 />
+          <SkCircle2 />
+          <SkCircle3 />
+          <SkCircle4 />
+          <SkCircle5 />
+          <SkCircle6 />
+          <SkCircle7 />
+          <SkCircle8 />
+          <SkCircle9 />
+          <SkCircle10 />
+          <SkCircle11 />
+          <SkCircle12 />
+        </SkCircleBounce>
+      </PreloaderInner>
+    </PreloaderItem>
+  </PreloaderWrapper>
 );

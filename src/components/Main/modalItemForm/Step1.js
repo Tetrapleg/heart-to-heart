@@ -25,21 +25,24 @@ const schema = yup.object().shape({
 
 export const Step1 = ({ stateStep, setStateStep }) => {
   const { data, setValues } = useData();
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: {
+    errors,
+  } } = useForm({
     defaultValues: { 
       firstName: data.firstName, 
       lastName: data.lastName,
-      userAgreement: !!data.userAgreement,
+      userAgreement: data.userAgreement,
      },
     mode: "onBlur",
     resolver: yupResolver(schema),
   });
+  const { ref, ...rest } = register("userAgreement");
 
   const onSubmit = (data) => {
     setStateStep(stateStep + 1);
     setValues(data);
   };
-  console.log(data.userAgreement);
+
   return (
     <FormContainer>
       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -70,11 +73,10 @@ export const Step1 = ({ stateStep, setStateStep }) => {
                 <Checkbox 
                   id="userAgreement"
                   name="userAgreement"
-                  // defaultValue={true} 
-                  // defaultChecked={true} 
                   defaultValue={data.userAgreement} 
-                  defaultChecked={data.userAgreement} 
-                  {...register("userAgreement")}
+                  defaultChecked={data.userAgreement}
+                  {...rest}
+                  inputRef={ref}
                   color="primary" />
               }
               label={<UserAgreementLabel  hasUserAgreement={!!errors.userAgreement}/>}

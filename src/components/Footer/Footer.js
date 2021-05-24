@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import YandexShare from 'react-yandex-share';
 import { ContentContainer } from '../htmlContainer/ContentContainer';
+import { useDispatch } from 'react-redux';
+import { setFullSizePDF } from '../../reducers/displayingFullSizeContentReduser';
 
 const FooterWrapper = styled.footer`
   display: flex;
@@ -44,27 +46,71 @@ const YandexShareWrapper = styled.div`
   }
 `;
 
-export const Footer = () => (
-  <>
-    <FooterWrapper>
-      <ContentContainer>
-        <YandexShareContainer>
-          <YandexShareTitle>Помоги бездомным животным - расскажи о нас друзьям!</YandexShareTitle>
-          <YandexShareWrapper>
-            <YandexShare 
-              content={{ title: 'Помоги бездомным животным - расскажи о нас друзьям!' }}
-              theme={{ lang: 'ru', 
-                      services: 'vkontakte,facebook,twitter,odnoklassniki,messenger,telegram',
-                      curtain: true,
-                      limit: 8,
-                      moreButtonType: 'short',
-                      popupDirection: 'auto',
-                      shape: 'round',
-                    }}
-            />
-          </YandexShareWrapper>
-        </YandexShareContainer>
-      </ContentContainer>
-    </FooterWrapper>
-  </>
-);
+const FooterDescrWrapper = styled.div`
+  width: 100%;
+  padding-top: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 450px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+`;
+
+const OfferLink = styled(YandexShareTitle)`
+  font-size: 1em;
+  font-weight: 300;
+  cursor: pointer;
+  
+  @media (max-width: 450px) {
+    padding-top: 0.5em;
+  }
+`;
+
+const EmailLink = styled(YandexShareTitle)`
+  font-size: 1em;
+  font-weight: 300;
+  padding-left: 1em;
+  
+  @media (max-width: 450px) {
+    padding-top: 0.5em;
+    padding-left: 0;
+  }
+`;
+
+export const Footer = () => {
+  const dispatch = useDispatch();
+
+  return (
+    <>
+      <FooterWrapper>
+        <ContentContainer>
+          <YandexShareContainer>
+            <YandexShareTitle>Помоги бездомным животным - расскажи о нас друзьям!</YandexShareTitle>
+            <YandexShareWrapper>
+              <YandexShare 
+                content={{ title: 'Помоги бездомным животным - расскажи о нас друзьям!' }}
+                theme={{ lang: 'ru', 
+                        services: 'vkontakte,facebook,twitter,odnoklassniki,messenger,telegram',
+                        curtain: true,
+                        limit: 8,
+                        moreButtonType: 'short',
+                        popupDirection: 'auto',
+                        shape: 'round',
+                      }}
+              />
+            </YandexShareWrapper>
+          </YandexShareContainer>
+          <FooterDescrWrapper >
+            <OfferLink 
+              onClick={() => dispatch(setFullSizePDF("offer_fullsize.pdf"))}
+            >Договор публичной оферты</OfferLink>
+            <EmailLink >Наш e-mail: serdcemkserdcy@yandex.ru</EmailLink>
+          </FooterDescrWrapper>
+        </ContentContainer>
+      </FooterWrapper>
+    </>
+  )
+};

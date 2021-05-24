@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { ShouldSvg } from '../../../svgIcons/SvgIcons';
 
 const StepWrapper = styled.p`
   width: 100%;
@@ -6,22 +7,30 @@ const StepWrapper = styled.p`
   justify-content: center;
 `;
 
+const stylesStep = css`
+  display: flex;
+  width: 1em;
+  height: 1em;
+  margin-right: 1em;
+`;
+
 const PastStep = styled.span`
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  border: 2px solid rgb(68, 189, 125);
-  background-color: rgb(68, 189, 125);
-  margin-right: 10px;
+  ${stylesStep}  
+  & svg {
+    & path {
+      fill: rgba(255,21,49,0.8);
+    }
+  }
 `;
 
 const WillStep = styled.span`
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  border: 2px solid rgb(68, 189, 125);
-  background-color: #fff;
-  margin-right: 10px;
+  ${stylesStep}
+  & svg {
+    & path {
+      filter: drop-shadow(0 0 2px rgba(255,21,49,0.9));
+      fill: rgba(255,255,255,1);
+    }
+  }
 `;
 
 const allSteps = [1, 2, 3, 4]
@@ -29,8 +38,8 @@ const allSteps = [1, 2, 3, 4]
 export const NumberOfStep = ({ stateStep }) => (
   <StepWrapper>
     {allSteps.map(item => (item <= stateStep ? 
-          <PastStep key={item}/> : 
-          <WillStep key={item}/>)
+          <PastStep key={item}><ShouldSvg /></PastStep> : 
+          <WillStep key={item}><ShouldSvg /></WillStep>)
     )}
   </StepWrapper>
 );

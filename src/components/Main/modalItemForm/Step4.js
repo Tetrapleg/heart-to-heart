@@ -20,13 +20,15 @@ export const Step4 = ({ stateStep, setStateStep }) => {
     setValues(data);
   };
 
-  return <FormContainer>
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <InputWrapper>
-        <FileInput name="files" control={control} />
-      </InputWrapper>
-      <PrimaryButton>Дальше</PrimaryButton>
-    </Form>
-    <NumberOfStep stateStep={stateStep} />
-   </FormContainer>
+  return (
+    <FormContainer>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <InputWrapper>
+          <FileInput name="files" control={control} />
+        </InputWrapper>
+        <PrimaryButton>Дальше</PrimaryButton>
+      </Form>
+      <NumberOfStep stateStep={stateStep} />
+    </FormContainer>
+   )
 };

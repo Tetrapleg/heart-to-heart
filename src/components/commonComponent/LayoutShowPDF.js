@@ -1,11 +1,15 @@
 import { createRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
-import samplePDF from '../images/politika.pdf';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import { makeStyles } from '@material-ui/core';
-import { Preloader } from './animationElements/Preloader';
+import { Preloader } from '../animationElements/Preloader';
+import { CloseModalButton } from './CloseModalButton';
+import { useDispatch } from 'react-redux';
+import { setFullSizePDF } from '../../reducers/displayingFullSizeContentReduser';
+import { Document, Page, pdfjs } from "react-pdf";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const Overlay = styled.div`
   position: fixed;
@@ -15,6 +19,7 @@ const Overlay = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0,0.5);
+  backdrop-filter: blur(0.2em);
   display: flex;
   justify-content: center;
   -webkit-overflow-scrolling: touch;
@@ -26,42 +31,6 @@ const DocumentWrapper = styled.div`
   background-color: #fff;
 `;
 
-const PrivPolicyCloseBtn = styled.div`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #e7f2df;
-  border: 3px solid rgb(68,189,125);
-  margin-bottom: 20px;
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  transition: all .3s;
-  &::after {
-    position: absolute;
-    content: '';
-    width: 30px;
-    height: 3px;
-    background-color: rgb(68,189,125);
-    top: 21px;
-    left: 7px;
-    transform: rotate(45deg);
-  }
-  &::before {
-    position: absolute;
-    content: '';
-    width: 30px;
-    height: 3px;
-    background-color: rgb(68,189,125);
-    top: 21px;
-    left: 7px;
-    transform: rotate(-45deg);
-  }
-  &:hover {
-    transform: scale(1.1)
-  }
-`;
-
 const NavWrapper = styled.div`
   height: fit-content;
   text-align: center;
@@ -70,7 +39,7 @@ const NavWrapper = styled.div`
   padding-left: 10px;
   right: 0;
   top: calc(50% - 130px);
-  border-left: 30px solid #fff;
+  border-left: 30px solid #E6E6FA;
   border-radius: 30px;
   box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.75);
   transform: translateX(79%);
@@ -84,7 +53,7 @@ const NavWrapper = styled.div`
     left: -20px;
     font-size: 25px;
     font-weight: 700;
-    color: rgb(68,189,125);
+    color: rgba(255,21,49,0.7);
     transition-delay: 0.3s;
     transition-duration: 0.3s;
   }
@@ -98,17 +67,64 @@ const NavWrapper = styled.div`
   }
 `;
 
-const ButtonPrev = styled.button`
+const CloseBtnWrapper = styled.div`
+  width: fit-content;
+  margin: 0 auto;
+  padding-left: 1em;
+`;
+
+const NumPagesWrapper = styled.div`
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.75);
+  background-color: #E6E6FA;
+  border-radius: 5px;
+  font-size: 1rem;
+`;
+
+const NavButtonWrapper = styled.div`
+  width: 90px;
+  padding-top: 10px;
+`;
+
+const NavButton = styled.button`
+  position: relative;
+  width: 2.5em;
+  height: 2.5em;
+  background-color: rgb(204,204,255);
+  border: 1px solid rgba(255,21,49,0.9);
+  box-shadow: inset 0 0 3px 1px rgb(0 0 0 / 60%), 
+              inset rgb(0 0 0 / 30%) -3px -3px 8px 5px, 
+              inset rgb(255 255 255 / 50%) 5px 5px 8px 5px, 
+              1px 1px 1px rgb(255 255 255 / 10%);
+  cursor: pointer;
+
+  &::before,
+  ::after {
+    color: rgba(255,21,49,0.7);
+  }
+
+  &:hover {
+    &::before,
+    ::after {
+      color: rgba(255,21,49,1);
+      filter: drop-shadow(0 0 4px rgba(255,0,0,0.7));
+    }
+  }
+
+  &:active {
+    box-shadow:
+      inset 0 0 5px 3px rgba(0,0,0,.8),
+      inset rgba(0,0,0,.3) -5px -5px 8px 5px,
+      inset rgba(255,255,255,.5) 5px 5px 8px 5px,
+      1px 1px 1px rgba(255,255,255,.2);
+  }
+`;
+
+const ButtonPrev = styled(NavButton)`
   font-style: normal;
   border-radius: 50%;
-  border: 1px solid rgb(68,189,125);
-  background-color: #e7f2df;
-  width: 40px;
-  height: 40px;
   &::before{
     content: '<';
-    font-size: 30px;
-    color: rgb(68,189,125);
+    font-size: 2em;
   }
   &:disabled{
     &::before{
@@ -117,30 +133,13 @@ const ButtonPrev = styled.button`
   }
 `;
 
-const NumPagesWrapper = styled.div`
-  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.75);
-  background-color: #fff;
-  border-radius: 5px;
-  font-size: 16px;
-`;
-
-const NavButtonWrapper = styled.div`
-  width: 90px;
-  padding-top: 10px;
-`;
-
-const ButtonNext = styled.button`
+const ButtonNext = styled(NavButton)`
   font-style: normal;
   border-radius: 50%;
-  border: 1px solid rgb(68,189,125);
-  background-color: #e7f2df;
-  width: 40px;
-  height: 40px;
-  margin-left: 10px;
+  margin-left: 0.6em;
   &::before{
     content: '>';
-    font-size: 30px;
-    color: rgb(68,189,125);
+    font-size: 2em
   }
   &:disabled{
     &::before{
@@ -156,23 +155,21 @@ const ScaleButtonWrapper = styled.div`
   display: inline-block;
   border-radius: 40px;
   margin-top: 15px;
-  border: 1px solid rgb(68,189,125);
-  background-color: #e7f2df;
+  border: 1px solid rgba(255,21,49,0.9);
+  background-color: rgb(204,204,255);
 `;
 
-const ZoomButton = styled.button`
+const ZoomButton = styled(NavButton)`
   position: absolute;
   top: 0;
   left: 0;
-  width: 40px;
-  height: 40px;
   border-radius: 40px 40px 0 0;
   border: none;
-  border-bottom: 1px solid rgb(68,189,125);
+  border-bottom: 1px solid rgba(255,21,49,0.9);
   background-color: transparent;
   &::before{
     content: "+";
-    font-size: 30px;
+    font-size: 2em;
   }
   &:disabled{
     &::before{
@@ -181,7 +178,7 @@ const ZoomButton = styled.button`
   }
 `;
 
-const ZoomOutButton = styled.button`
+const ZoomOutButton = styled(NavButton)`
   position: absolute;
   bottom: 0;
   left: 0;
@@ -189,11 +186,11 @@ const ZoomOutButton = styled.button`
   height: 40px;
   border-radius: 0 0 40px 40px;
   border: none;
-  border-top: 1px solid rgb(68,189,125);
+  border-top: 1px solid rgba(255,21,49,0.9);
   background-color: transparent;
   &::before{
     content: "-";
-    font-size: 30px;
+    font-size: 2em;
   }
   &:disabled{
     &::before{
@@ -212,7 +209,8 @@ const useStyles = makeStyles({
   }
 });
 
-export const PrivacyPolicy = ({ togglePrivacyPolicy }) => {
+export const LayoutShowPDF = ({ urlPDF }) => {
+  const dispatch = useDispatch();
   const styles = useStyles();
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
@@ -249,9 +247,8 @@ export const PrivacyPolicy = ({ togglePrivacyPolicy }) => {
     changeZoom(-0.1);
   }
 
-  const closePrivacyPolicy = (e) => {
-    if(e.target.id === "overlayPrivPolicy" ||
-        e.target.id === "privPolicyCloseBtn") togglePrivacyPolicy();
+  const closeModalPDF = (e) => {
+    if(e.target.id === "overlayModalPDF") dispatch(setFullSizePDF(null));
   };
 
   useEffect(() => {
@@ -261,10 +258,7 @@ export const PrivacyPolicy = ({ togglePrivacyPolicy }) => {
       disableBodyScroll(overlayRef.current);
     }
     
-    return () => {
-      if(clearScroll) {
-        enableBodyScroll(clearScroll);
-      }}
+    return () => enableBodyScroll(clearScroll);
   }, [numPages, overlayRef]);
 
   useEffect(() => {
@@ -284,13 +278,13 @@ export const PrivacyPolicy = ({ togglePrivacyPolicy }) => {
 
   return (
     <Overlay 
-      id="overlayPrivPolicy"
-      onClick={closePrivacyPolicy}>
+      id="overlayModalPDF"
+      onClick={closeModalPDF}>
       <DocumentWrapper >
         <Document
           inputRef={overlayRef}
           className={styles.root}
-          file={samplePDF}
+          file={urlPDF}
           onLoadSuccess={onDocumentLoadSuccess}
           loading={<Preloader />}
           renderMode="svg"
@@ -306,7 +300,9 @@ export const PrivacyPolicy = ({ togglePrivacyPolicy }) => {
         </Document>
       </DocumentWrapper>
       {numPages && <NavWrapper>
-            <PrivPolicyCloseBtn id="privPolicyCloseBtn" onClick={closePrivacyPolicy}/>
+            <CloseBtnWrapper >
+              <CloseModalButton closeModal={()=>dispatch(setFullSizePDF(null))}/>
+            </CloseBtnWrapper>
             <NumPagesWrapper>
               Страница <div>{pageNumber || (numPages ? 1 : '--')} / {numPages || '--'}</div>
             </NumPagesWrapper>

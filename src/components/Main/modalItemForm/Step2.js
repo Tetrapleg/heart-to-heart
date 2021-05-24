@@ -29,7 +29,15 @@ const normalizePhoneNumber = (value) => {
 
 export const Step2 = ({ stateStep, setStateStep }) => {
   const { data, setValues } = useData();
-  const { register, handleSubmit, errors, watch } = useForm({
+  const {
+    register,
+    handleSubmit,
+    watch,
+
+    formState: {
+      errors,
+    },
+  } = useForm({
     defaultValues: {
       email: data.email,
       hasPhone: data.hasPhone,
@@ -38,8 +46,9 @@ export const Step2 = ({ stateStep, setStateStep }) => {
     mode: "onBlur",
     resolver: yupResolver(schema),
   });
+  const { ref, ...rest } = {...register("hasPhone")};
 
-  const hasPhone = watch("hasPhone"); 
+  const [hasPhone] = watch(["hasPhone"]); 
 
   const onSubmit = (data) => {
     setStateStep(stateStep + 1);
@@ -50,49 +59,48 @@ export const Step2 = ({ stateStep, setStateStep }) => {
     delete data.phoneNumber;
   }
 
-  return <FormContainer>
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <InputWrapper>
-        <Input
-          ref={register}
-          id="email"
-          type="email"
-          label="Email"
-          name="email"
-          required
-          error={!!errors.email}
-          helperText={errors?.email?.message}
-        />
+  return (
+    <FormContainer>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <InputWrapper>
+          <Input
+            id="email"
+            type="email"
+            label="Email"
+            {...register('email')}
+            required
+            error={!!errors.email}
+            helperText={errors?.email?.message} />
 
-        <FormControlLabel 
-          control={
-            <Checkbox 
-              defaultValue={data.hasPhone} 
-              defaultChecked={data.hasPhone} 
-              name="hasPhone" 
-              inputRef={register} 
-              color="primary" />
+          <FormControlLabel 
+            control={
+              <Checkbox 
+                defaultValue={data.hasPhone} 
+                defaultChecked={data.hasPhone} 
+                name="hasPhone" 
+                {...rest}
+                inputRef={ref} 
+                color="primary" />
+            }
+            label="Ваш телефон"
+          />
+
+          {
+            hasPhone && (
+              <Input
+                id="phoneNumber"
+                type="tel"
+                label="Номер телефона"
+                {...register('phoneNumber')}
+                onChange={(event) => {
+                  event.target.value = normalizePhoneNumber(event.target.value)
+                }} />
+            )
           }
-          label="Ваш телефон"
-        />
-
-        {
-          hasPhone && (
-            <Input 
-              ref={register}
-              id="phoneNumber"
-              type="tel"
-              label="Номер телефона"
-              name="phoneNumber"
-              onChange={(event) => {
-                event.target.value = normalizePhoneNumber(event.target.value)
-              }}
-            />
-          )
-        }
-      </InputWrapper>
-      <PrimaryButton>Дальше</PrimaryButton>
-    </Form>
-    <NumberOfStep stateStep={stateStep} />
-  </FormContainer>
+        </InputWrapper>
+        <PrimaryButton>Дальше</PrimaryButton>
+      </Form>
+      <NumberOfStep stateStep={stateStep} />
+    </FormContainer>
+  );
 };
