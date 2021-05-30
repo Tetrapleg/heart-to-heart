@@ -11,4 +11,4 @@ export const TextItem = ({ children }) => (
   <Text >
     {children}
   </Text>
-)
+);

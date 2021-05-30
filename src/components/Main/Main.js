@@ -6,9 +6,13 @@ import { PageWithAside } from './layoutMainPageComponents/PageWithAside';
 import { NewsAboutUs } from './newsAboutUs/NewsAboutUs';
 import { LayoutShowPDF } from '../commonComponent/LayoutShowPDF';
 import { shallowEqual, useSelector } from 'react-redux';
+import { LayoutShowImg } from '../commonComponent/LayoutShowImg';
+import { LayoutShowVideo } from '../commonComponent/LayoutShowVideo';
 
 export const Main = () => {
   const urlPDF = useSelector(state => state.fullSizeContent.itemsPDF, shallowEqual);
+  const urlImg = useSelector(state => state.fullSizeContent.itemsImg, shallowEqual);
+  const urlVideo = useSelector(state => state.fullSizeContent.itemsVideo, shallowEqual);
 
   return(
     <MainPageWrapper >
@@ -22,6 +26,16 @@ export const Main = () => {
       {urlPDF && 
         <LayoutShowPDF 
           urlPDF={urlPDF}
+        />
+      }
+      {urlImg && 
+        <LayoutShowImg 
+          urlImg={urlImg}
+        />
+      }
+      {urlVideo && 
+        <LayoutShowVideo 
+          urlVideo={urlVideo}
         />
       }
     </MainPageWrapper>

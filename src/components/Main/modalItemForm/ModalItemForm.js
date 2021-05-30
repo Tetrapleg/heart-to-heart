@@ -59,7 +59,7 @@ const TopTitle = styled.p`
   }
 
   @media (max-width: 460px) {
-    font-size: 18px;
+    font-size: 1em;
   }
 `;
 
