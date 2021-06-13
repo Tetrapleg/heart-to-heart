@@ -15,7 +15,7 @@ const AsideWrapper = styled.aside`
                               padding-left: 2rem;` : undefined
     : undefined
   };
-  @media(max-width: 1100px) {
+  @media(max-width: 1300px) {
     display: none;
   }
 `;

@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { setFullSizeImg, setFullSizePDF, setFullSizeVideo } from '../../reducers/displayingFullSizeContentReduser';
+import { setFullSizeImg, setFullSizePDF, setFullSizeVideo } from '../../reducers/displayingFullSizeContentReducer';
 import preloaderSvg from './../../images/preloaderSvg.svg';
 import playButton from './../../images/play_button.png';
 import { getVideoDuration } from '../functions/getVideoDuration';
@@ -15,8 +15,14 @@ const Figure = styled.figure`
   align-items: center;
   text-align: center;
   padding: 0.5em;
+  height: fit-content;
   cursor: ${({ props }) => props.fullSizeTypeFile === "video" ? "pointer" : "zoom-in"};
   ${({ props }) => props.figureStyle ? props.figureStyle.join(';') : undefined}
+
+  /* @media(max-width: 450px) {
+    padding: 0;
+    margin: 0;
+  } */
 `;
 
 const ImgWrapper = styled.div`
@@ -30,7 +36,26 @@ const BackgroundImage = styled.div`
   background-size: contain, 30%;
   background-origin: content-box;
   position: relative;
+  /* max-width: ${document.documentElement.clientWidth - 65}px; */
   ${({ props }) => props.bgImgStyle ? props.bgImgStyle.join(';') : undefined}
+`;
+
+const PdfInner = styled.div`
+  background-image: url(${preloaderSvg});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30%;
+  background-origin: content-box;
+  position: relative;
+
+  &::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const ControlVideo = styled.span`
@@ -83,7 +108,9 @@ const ControllSmallSizeVideo = styled.span`
 const Figcaption = styled.figcaption`
   margin: 0.5em auto 0;
   font-weight: 500;
-  font-size: 1em;
+  font-size: 0.9em;
+  word-wrap: break-word;
+  max-width: ${document.documentElement.clientWidth - 65}px;
   ${({ props }) => props.figcaptionStyle ? props.figcaptionStyle.join(';') : undefined}
 `;
 
@@ -95,23 +122,39 @@ export const FigureImg = ({ ...props }) => {
     if(typeFile === "pdf") {
       const urlPDF = `${props.fullSizeTypeName}_fullsize.pdf`;
       dispatch(setFullSizePDF(urlPDF));
-    } else if(typeFile === "photo") {
-      dispatch(setFullSizeImg(props.fullSizeTypeName));
+    } else if(typeFile === "photo" || typeFile === "doc") {
+      dispatch(setFullSizeImg({
+                              fullSizeTypeName: props.fullSizeTypeName,
+                              ext: props.ext ? props.ext : null,
+                            })
+              );
     } else if(typeFile === "video") {
       dispatch(setFullSizeVideo(props.fullSizeTypeName));
     }
   };
-
+//  console.log(props);
   return(<Figure 
       onClick={openFullSizeModal}
       props={props}
     >
       <ImgWrapper >
+        {props.ext ? 
+        <PdfInner  
+          props={props}
+        >
+          <iframe 
+          src={props.url}
+          title="pdf"
+          width={props.width}
+          height={props.height}
+          frameBorder="0" 
+          allowFullScreen></iframe>
+        </PdfInner> :
         <BackgroundImage 
           props={props}
-        />
+        />}
         {typeFile === "video" && <>
-            {props.key < 3 ? 
+            {props.serialNumber < 3 ? 
               <>
                 <ControlVideo />
                 <DurationVideo >{getVideoDuration(props.duration)}</DurationVideo>
@@ -122,9 +165,9 @@ export const FigureImg = ({ ...props }) => {
             }
         </>}
       </ImgWrapper>
-      <Figcaption 
+      {props.descr !== "" && <Figcaption 
         props={props}
-      >{props.descr}</Figcaption>
+      >{props.descr}</Figcaption>}
     </Figure>
   )
 };

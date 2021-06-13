@@ -9,6 +9,16 @@ const Wrapper = styled.div`
   box-shadow: 0 0 1em 0.1em rgba(0,0,0,0.1);
   margin-top: 2em;
   margin-bottom: 2em;
+
+  @media(max-width: 450px) {
+    padding-right: 0;
+    padding-left: 0;
+    border-radius: 0;
+    box-shadow: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0,0,0,0.1);
+  }
 `;
 
 export const MessageWrapper = ({ children, ...props }) => (

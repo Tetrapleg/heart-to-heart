@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import { Preloader } from '../animationElements/Preloader';
 import { CloseModalButton } from './CloseModalButton';
 import { useDispatch } from 'react-redux';
-import { setFullSizePDF } from '../../reducers/displayingFullSizeContentReduser';
+import { setFullSizePDF } from '../../reducers/displayingFullSizeContentReducer';
 import { Document, Page, pdfjs } from "react-pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;

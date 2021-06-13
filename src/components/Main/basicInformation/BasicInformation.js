@@ -3,7 +3,7 @@ import { DividingLine } from '../../commonComponent/DividingLine';
 import { FooterTitle } from '../../commonComponent/FooterTitle';
 import { LinkTo, LinkHref } from '../../commonComponent/CustomLinks';
 import { TextItem } from '../../commonComponent/TextItem';
-import { Title } from '../../commonComponent/Title';
+import { HeaderTitle } from '../../commonComponent/HeaderTitle';
 import { ContentContainer } from '../../htmlContainer/ContentContainer';
 import certificate from './../../../images/certificate.jpg';
 import { FigureImg } from '../../commonComponent/FigureImg';
@@ -14,7 +14,7 @@ export const BasicInformation = () => (
   <ContentContainer >
     <ContentWrapper >
       <MessageWrapper >
-        <Title >Немного истории...</Title>
+        <HeaderTitle >Немного истории...</HeaderTitle>
         <DividingLine />
         <TextItem >
           В 2016 году несколько человек объединились и начали помогать бездомным животным. Так поочередно появились наши сообщества «Сердцем к сердцу» в соцсетях: <LinkHref href="https://ok.ru/group/53568865697985" target="_blank" rel="noreferrer">одноклассники</LinkHref>, <LinkHref href="https://vk.com/serdcem_k_serdcy_46" target="_blank" rel="noreferrer">ВКонтакте</LinkHref>, <LinkHref href="https://instagram.com/serdcem_k_serdcu46?igshid=1wu3d..." target="_blank" rel="noreferrer">инстаграм</LinkHref>.
@@ -33,7 +33,7 @@ export const BasicInformation = () => (
         <TextItem >
           13 ноября 2017 года мы зарегистрировали Железногорскую местную общественную зоозащитную организацию Курской области «Сердцем к сердцу» для возможности официально помогать животным, участвовать в благотворительных конкурсах, акциях и т.д.
         </TextItem>
-        <Title >Мы - обычные люди</Title>
+        <HeaderTitle >Мы - обычные люди</HeaderTitle>
         <DividingLine />
         <TextItem >
           Как и любой из вас, мы являемся обычными людьми, имеющими основную работу, семьи, своих домашних животных... Да, иногда устаем, но желание помогать и делать мир добрее придает нам сил, чтобы все свободное время посвящать братьям нашим меньшим.
@@ -44,7 +44,7 @@ export const BasicInformation = () => (
         <TextItem >
           Никакой материальной выгоды от своей деятельности мы не имеем. Но чувство, когда ты помог очередному «хвостику» лучше любой награды.
         </TextItem>     
-        <Title >Мы - волонтёры</Title>
+        <HeaderTitle >Мы - волонтёры</HeaderTitle>
         <DividingLine />
         <TextItem >
           В чем заключается наша волонтерская деятельность: отлов бездомных животных, лечение пострадавших от несчастных случаев, болезней и жестокости людей, стерилизация, вакцинация и пристрой в добрые руки.
@@ -73,7 +73,6 @@ export const BasicInformation = () => (
           Присоединяйся к нам, не оставайся в стороне! Чем больше в наших рядах активных и добрых людей, тем больше шансов у животных на счастливую жизнь!
         </FooterTitle>
       </MessageWrapper>
-
     </ContentWrapper>
   </ContentContainer>
 );

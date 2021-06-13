@@ -1,7 +1,10 @@
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { setFullSizeVideo } from '../../reducers/displayingFullSizeContentReduser';
-import preloaderSvg from './../../images/preloaderSvg.svg';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { setFullSizeVideo, setUrlFullSizeVideo } from '../../reducers/displayingFullSizeContentReducer';
+import { useEffect, useState } from 'react';
+import { getJsonpVkApiData } from '../actions/getJsonpVkApiData';
+import { Preloader } from '../animationElements/Preloader';
+import { CloseModalButton } from './CloseModalButton';
 
 const Overlay = styled.div`
   position: fixed;
@@ -13,10 +16,18 @@ const Overlay = styled.div`
   background-color: rgba(0,0,0,0.7);
   backdrop-filter: blur(0.2em);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   -webkit-overflow-scrolling: touch;
   cursor: zoom-out;
+`;
+
+ export const CloseModalButtonWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
 `;
 
 const VideoWrapper = styled.div`
@@ -24,42 +35,54 @@ const VideoWrapper = styled.div`
   padding: 1em;
   background-color: rgba(204,204,255,0.7);
   border-radius: 0.5em;
+  &[data-padding-hidden='true'] {
+    padding: 0;
+  }
+
+  & iframe {
+    max-height: 90vh;
+    max-width: 90vw;
+    position: relative;
+  }
 `;
 
-const PreloaderImg = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: red;
-  width: 2em;
-  height: 2em;
-  z-index: 0;
-  background-image: url(${preloaderSvg});
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  border-radius: 50%;
-  min-width: 5em;
-  min-height: 5em;
-`;
-
-export const LayoutShowVideo = ({ urlVideo }) => {
+export const LayoutShowVideo = ({ idVideo }) => {
   const dispatch = useDispatch();
+  const urlVideo = useSelector(state => state.fullSizeContent.urlVideo, shallowEqual);
+  const [loaded, setLoaded] = useState(true);
+
+  useEffect(() => {
+    dispatch(getJsonpVkApiData({method: "video.get", owner_id: idVideo[0], requestParams: [`videos=${idVideo[0]}_${idVideo[1]}`]}));
+  }, [dispatch, idVideo]);
 
   const closeModalVideo = () => {
     dispatch(setFullSizeVideo(null));
+    dispatch(setUrlFullSizeVideo(null));
   };
-  console.log(urlVideo);
+
+  const iframeOnLoad = () => {
+    setLoaded(false);
+  };
+  // console.log(urlVideo);
   return (
     <Overlay
       onClick={closeModalVideo}>
-      <VideoWrapper >
-        <PreloaderImg />
-        <iframe src="https://vk.com/video_ext.php?oid=-124002988&id=456245086&hash=5a1035cf41030680&hd=1" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+      <CloseModalButtonWrapper >
+        <CloseModalButton closeModal={closeModalVideo}/>
+      </CloseModalButtonWrapper>
+      <VideoWrapper data-padding-hidden={loaded}>
+        {urlVideo && 
+          <iframe 
+            src={urlVideo.response.items[0].player} 
+            title={urlVideo.response.items[0].id}  
+            onLoad={iframeOnLoad} 
+            width={urlVideo.response.items[0].width}
+            height={urlVideo.response.items[0].height}
+            frameBorder="0" 
+            allow="autoplay" 
+            allowFullScreen></iframe>}
+        {loaded && <Preloader />}
       </VideoWrapper>
     </Overlay>
   );
 };
-
-// video_74e237b1a7Z3BhKeamadFt9BO7f6TDkWQISGKRqcpPAY709pZmFdkmoFGZJiCZ0c3kFTtc96CyJ1tL4fHuvFnHQ

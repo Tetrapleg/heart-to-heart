@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import YandexShare from 'react-yandex-share';
 import { ContentContainer } from '../htmlContainer/ContentContainer';
 import { useDispatch } from 'react-redux';
-import { setFullSizePDF } from '../../reducers/displayingFullSizeContentReduser';
+import { setFullSizePDF } from '../../reducers/displayingFullSizeContentReducer';
 
 const FooterWrapper = styled.footer`
   display: flex;

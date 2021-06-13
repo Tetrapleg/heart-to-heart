@@ -1,14 +1,16 @@
 const SET_FULL_SIZE_PDF = "SET_FULL_SIZE_PDF";
 const SET_FULL_SIZE_IMG = "SET_FULL_SIZE_IMG";
 const SET_FULL_SIZE_VIDEO = "SET_FULL_SIZE_VIDEO";
+const SET_URL_FULL_SIZE_VIDEO = "SET_URL_FULL_SIZE_VIDEO";
 
 const defaultState = {
   itemsPDF: null,
   itemsImg: null,
   itemsVideo: null,
+  urlVideo: null,
 };
 
-export const displayingFullSizeContentReduser = (state = defaultState, action) => {
+export const displayingFullSizeContentReducer = (state = defaultState, action) => {
   switch (action.type) {
     case SET_FULL_SIZE_PDF:
       const urlFullSize = action.payload ? 
@@ -28,6 +30,11 @@ export const displayingFullSizeContentReduser = (state = defaultState, action) =
         ...state,
         itemsVideo: action.payload,
       };
+    case SET_URL_FULL_SIZE_VIDEO:
+      return {
+        ...state,
+        urlVideo: action.payload,
+      };
     default:
       return state;
   }
@@ -35,4 +42,5 @@ export const displayingFullSizeContentReduser = (state = defaultState, action) =
 
 export const setFullSizePDF = (urlPDF) => ({ type:SET_FULL_SIZE_PDF, payload:urlPDF });
 export const setFullSizeImg = (urlImg) => ({ type:SET_FULL_SIZE_IMG, payload:urlImg });
-export const setFullSizeVideo = (urlVideo) => ({ type:SET_FULL_SIZE_VIDEO, payload:urlVideo });
+export const setFullSizeVideo = (idVideo) => ({ type:SET_FULL_SIZE_VIDEO, payload:idVideo });
+export const setUrlFullSizeVideo = (urlVideo) => ({ type:SET_URL_FULL_SIZE_VIDEO, payload:urlVideo });

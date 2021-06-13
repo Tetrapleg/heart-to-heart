@@ -13,7 +13,6 @@ const ContentContainer = styled.section`
   @media(max-width: 1060px) {
     font-size: 2.3vmax;
   }
-
 `;
 
 export const ContentWrapper = ({ children }) => (

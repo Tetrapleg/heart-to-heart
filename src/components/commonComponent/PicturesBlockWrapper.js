@@ -10,60 +10,60 @@ const BlockWrapper = styled.div`
 const LargePicturesBlock = styled.div`
   display: flex;
   flex-wrap: wrap;
+
+  @media(max-width: 450px) {
+    justify-content: space-around;
+  }
 `;
 
 const SmallPicturesBlock = styled.div`
   display: flex;
   flex-wrap: wrap;
+
+  @media(max-width: 450px) {
+    justify-content: space-around;
+  }
 `;
 
-export const PicturesBlockWrapper = ({ ...props }) => {
-  console.log(props);
+export const PicturesBlockWrapper = ({ attachments }) => {
+  // console.log(attachments);
 
   return(
   <BlockWrapper >
     <LargePicturesBlock >
-      {props.photos.map((item, i) => i < 3 && item.type !== "link" &&
+      {attachments.map((item, i) => i < 3 && 
         <FigureImg 
           key={i} 
-          url={item.photo?.sizes.find(elem => elem.type === "r" || elem.type === "q").url ||
-              item.video.image.find(elem => !elem.with_padding && +elem.width === 320).url}
+          serialNumber={i}
+          url={item.params.url}
           fullSizeTypeFile={item.type}
-          fullSizeTypeName={item.photo?.sizes.find(elem => elem.type === "z" || elem.type === "x").url ||
-                            item.video.track_code}
-          descr={item.photo?.text ??
-                item.video.title}
-          duration={item.video?.duration}
+          fullSizeTypeName={item.params.fullSizeUrl}
+          descr={item.params.descr}
+          duration={item.params.duration}
           figureStyle={["margin: 0.4em"]}
-          bgImgStyle={[`width: ${item.photo?.sizes.find(elem => elem.type === "r" || elem.type === "q").width ||
-                                item.video.image.find(elem => !elem.with_padding && +elem.width === 320).width}px`,
-                      `height: ${item.photo?.sizes.find(elem => elem.type === "r" || elem.type === "q").height ||
-                                item.video.image.find(elem => !elem.with_padding && +elem.width === 320).height}px`]}
-          figcaptionStyle={[`width: ${item.photo?.sizes.find(elem => elem.type === "r" || elem.type === "q").width ||
-                                item.video.image.find(elem => !elem.with_padding && +elem.width === 320).width}px`]}
+          bgImgStyle={[`width: ${item.params.width}px`,
+                      `height: ${item.params.height}px`]}
+          figcaptionStyle={[`width: ${item.params.width}px`]}
+          ext={item.params.ext}
         />
       )}
     </LargePicturesBlock>
-    {props.photos.length >3 && 
+    {attachments.length > 3 && 
       <SmallPicturesBlock >
-        {props.photos.map((item, i) => i >= 3 &&  item.type !== "link" &&
+        {attachments.map((item, i) => i >= 3 &&
           <FigureImg 
             key={i} 
-            url={item.photo?.sizes.find(elem => elem.type === "p" || elem.type === "o").url ||
-                item.video.image.find(elem => +elem.width === 160 || +elem.width === 130).url}
+            serialNumber={i}
+            url={item.params.url}
             fullSizeTypeFile={item.type}
-            fullSizeTypeName={item.photo?.sizes.find(elem => elem.type === "z" || elem.type === "x").url ||
-                              item.video.track_code}
-            descr={item.photo?.text ??
-                  item.video.title}
-            duration={item.video?.duration}
+            fullSizeTypeName={item.params.fullSizeUrl}
+            descr={item.params.descr}
+            duration={item.params.duration}
             figureStyle={["margin: 0.4em"]}
-            bgImgStyle={[`width: ${item.photo?.sizes.find(elem => elem.type === "p" || elem.type === "o").width ||
-                                  item.video.image.find(elem => +elem.width === 160 || +elem.width === 130).width}px`,
-                        `height: ${item.photo?.sizes.find(elem => elem.type === "p" || elem.type === "o").height ||
-                                  item.video.image.find(elem => +elem.width === 160 || +elem.width === 130).height}px`]}
-            figcaptionStyle={[`width: ${item.photo?.sizes.find(elem => elem.type === "p" || elem.type === "o").width ||
-                                  item.video.image.find(elem => +elem.width === 160 || +elem.width === 130).width}px`]}
+            bgImgStyle={[`width: ${item.params.width}px`,
+                        `height: ${item.params.height}px`]}
+            figcaptionStyle={[`width: ${item.params.width}px`]}
+            ext={item.params.ext}
           />
         )}
       </SmallPicturesBlock>}

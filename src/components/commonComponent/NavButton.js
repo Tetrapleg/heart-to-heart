@@ -1,9 +1,15 @@
 import styled from 'styled-components';
 
-const Button = styled.div`
+const Button = styled.button`
 position: relative;
-width: 2.5em;
-height: 2.5em;
+color: rgba(255,21,49,0.8);
+display: block;
+width: fit-content;
+height: fit-content;
+padding: 0.3em 0.5em;
+border-radius: 0.3em;
+font-weight: 400;
+font-size: 0.7em;
 background-color: rgb(204,204,255);
 border: 1px solid rgba(255,21,49,0.9);
 box-shadow: inset 0 0 3px 1px rgb(0 0 0 / 60%), 
@@ -12,12 +18,11 @@ box-shadow: inset 0 0 3px 1px rgb(0 0 0 / 60%),
             1px 1px 1px rgb(255 255 255 / 10%);
 cursor: pointer;
 
-&:hover {
-&::before,
-::after {
-  background-color: rgba(255,21,49,1);
-  filter: drop-shadow(0 0 4px rgba(255,0,0,0.7));
-}
+&.active,
+&:hover[disabled="false"] {
+  background-color: rgba(255,21,49,0.9);
+  color: rgba(204,204,255,1);
+  filter: drop-shadow(0 0 2px rgba(204,204,255,0.5));
 }
 
 &:active {
@@ -29,6 +34,8 @@ box-shadow:
 }
 `;
 
-export const NavButton = () => (
-  <Button ></Button>
+export const NavButton = ({ children, ...props }) => (
+  <Button {...props}>
+    {children}
+  </Button>
 );

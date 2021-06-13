@@ -1,7 +1,7 @@
 import { FormLabel } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { setFullSizePDF } from '../../../../reducers/displayingFullSizeContentReduser';
+import { setFullSizePDF } from '../../../../reducers/displayingFullSizeContentReducer';
 
 const LaberWrapper = styled.span`
   font-size: 16px;

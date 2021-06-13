@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { setFullSizeImg } from '../../reducers/displayingFullSizeContentReduser';
-import preloaderSvg from './../../images/preloaderSvg.svg';
+import { setFullSizeImg } from '../../reducers/displayingFullSizeContentReducer';
+import { Preloader } from '../animationElements/Preloader';
+import { useState } from 'react';
+import { CloseModalButtonWrapper } from './LayoutShowVideo';
+import { CloseModalButton } from './CloseModalButton';
 
 const Overlay = styled.div`
   position: fixed;
@@ -24,44 +27,56 @@ const ImgWrapper = styled.div`
   padding: 1em;
   background-color: rgba(204,204,255,0.7);
   border-radius: 0.5em;
+  &[data-hidden-padding='true'] {
+    padding: 0em;
+  }
 
   & img {
     max-height: 90vh;
     position: relative;
+  }  
+  
+  & iframe {
+    height: 90vh;
+    width: 90vw;
+    position: relative;
   }
-`;
-
-const PreloaderImg = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: red;
-  width: 2em;
-  height: 2em;
-  z-index: 0;
-  background-image: url(${preloaderSvg});
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  border-radius: 50%;
-  min-width: 5em;
-  min-height: 5em;
 `;
 
 export const LayoutShowImg = ({ urlImg }) => {
   const dispatch = useDispatch();
+  const [loaded, setLoaded] = useState(true);
 
   const closeModalImg = () => {
     dispatch(setFullSizeImg(null));
   };
 
+  const imgOnLoad = () => {
+    setLoaded(false);
+  };
+  console.log(urlImg);
   return (
     <Overlay
       onClick={closeModalImg}>
-      <ImgWrapper >
-        <PreloaderImg />
-        <img src={urlImg} alt="фото"/>
+      <CloseModalButtonWrapper >
+        <CloseModalButton closeModal={closeModalImg}/>
+      </CloseModalButtonWrapper>
+      <ImgWrapper data-hidden-padding={loaded}>
+        {loaded && <Preloader />}
+        {urlImg.ext ?         
+          <iframe 
+            src={urlImg.fullSizeTypeName} 
+            title="pdf"  
+            onLoad={imgOnLoad} 
+            onClick={closeModalImg}
+            frameBorder="0" 
+            allowFullScreen
+          /> :
+          <img src={urlImg.fullSizeTypeName} 
+            alt="фото" 
+            onLoad={imgOnLoad}
+          />
+        }
       </ImgWrapper>
     </Overlay>
   );

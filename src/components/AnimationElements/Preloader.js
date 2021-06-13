@@ -51,6 +51,17 @@ const PreloaderItem = styled.div`
   max-height: 6rem;
 `;
 
+const ElementPreloaderItem = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  width: 3vmax;
+  height: 3vmax;
+  max-width: 6rem;
+  max-height: 6rem;
+`;
+
 const PreloaderInner = styled.div`
   flex: 1 1 25%;
   left: 0;
@@ -218,4 +229,25 @@ export const Preloader = () => (
       </PreloaderInner>
     </PreloaderItem>
   </PreloaderWrapper>
+);
+
+export const ElementPreloader = () => (
+  <ElementPreloaderItem >
+    <PreloaderInner>
+      <SkCircleBounce>
+        <SkCircle1 />
+        <SkCircle2 />
+        <SkCircle3 />
+        <SkCircle4 />
+        <SkCircle5 />
+        <SkCircle6 />
+        <SkCircle7 />
+        <SkCircle8 />
+        <SkCircle9 />
+        <SkCircle10 />
+        <SkCircle11 />
+        <SkCircle12 />
+      </SkCircleBounce>
+    </PreloaderInner>
+  </ElementPreloaderItem>
 );
