@@ -129,10 +129,6 @@ export const GlobalStyle = createGlobalStyle`
   select { /* 1 */
     text-transform: none;
   }
-
-  button {
-    cursor: pointer;
-  }
   
   button,
   [type="button"],

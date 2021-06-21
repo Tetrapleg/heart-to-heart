@@ -13,7 +13,7 @@ export const dataBoardVkApiReducer = (state = defaultState, action) => {
     case SET_BOARD_DATA_VK_API:
       return {
         ...state,
-        boardPosts: action.payload,
+        boardPostsFiltered: action.payload,
       };
     case SET_FETCHING_BOARD_DATA_VK_API:
       return {

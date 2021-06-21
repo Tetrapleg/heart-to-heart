@@ -4,7 +4,7 @@ import { setUrlFullSizeVideo } from '../../reducers/displayingFullSizeContentRed
 import { filteringDataVkApi } from '../functions/filteringDataVkApi';
 
 export const getJsonpVkApiData = ({ method = "wall.get", owner_id = '-124002988', count = 1, offset = 0, ...params }) => {
-  const access_token = 'b94dbda52d9f300bca5a02b7b2f883898c8d14b9f0a69cb186caeabf76b1c20961358ed6948cdb6e79078';
+  const access_token = 'd8546c95a18556ceedc481e4ade6db73a1c0565b408e40bfa8edb9820d15b606320de3dd813735a2815fe';
   const requestParams = params.requestParams ? `&${params.requestParams.join('&')}` : '';
 
   const jsonpThen = (jsonpRes, dispatch) => {
@@ -20,6 +20,24 @@ export const getJsonpVkApiData = ({ method = "wall.get", owner_id = '-124002988'
         if (jsonpRes.error) {
           filteringDataVkApi(jsonpRes, dispatch, method);
         } else {
+          filteringDataVkApi(jsonpRes, dispatch, method);
+        }
+        break;
+      case "market.get":
+        if (jsonpRes.error) {
+          console.log(jsonpRes);
+          // filteringDataVkApi(jsonpRes, dispatch, method);
+        } else {
+          console.log(jsonpRes);
+          // filteringDataVkApi(jsonpRes, dispatch, method);
+        }
+        break;
+      case "market.search":
+        if (jsonpRes.error) {
+          // console.log(jsonpRes);
+          filteringDataVkApi(jsonpRes, dispatch, method);
+        } else {
+          // console.log(jsonpRes);
           filteringDataVkApi(jsonpRes, dispatch, method);
         }
         break;

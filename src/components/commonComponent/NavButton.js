@@ -16,10 +16,13 @@ box-shadow: inset 0 0 3px 1px rgb(0 0 0 / 60%),
             inset rgb(0 0 0 / 30%) -3px -3px 8px 5px, 
             inset rgb(255 255 255 / 50%) 5px 5px 8px 5px, 
             1px 1px 1px rgb(255 255 255 / 10%);
-cursor: pointer;
+
+&:not([disabled]) {
+  cursor: pointer;
+}
 
 &.active,
-&:hover[disabled="false"] {
+&:hover:not([disabled]) {
   background-color: rgba(255,21,49,0.9);
   color: rgba(204,204,255,1);
   filter: drop-shadow(0 0 2px rgba(204,204,255,0.5));

@@ -5,7 +5,7 @@ const PaginationInner = styled.div`
   background-color: #E6E6FA;
   width: fit-content;
   border-radius: 0.3em;
-  margin-left: auto;
+  /* margin-left: auto; */
   margin-right: 1em;
   box-shadow: 0 0 1em 0.1em rgba(0,0,0,0.1);
   font-size: 0.8em;
@@ -26,10 +26,24 @@ const ActiveSpan = styled.span`
   cursor: pointer;
 `;
 
-export const PaginationWrapper=styled.section`
+export const PaginationTitle = styled(PaginationInner)`
+  margin-left: 1em;
+  margin-right: auto;
+  font-weight: 300;
+
+  & span {
+    font-size: 0.8em;
+    font-weight: 400;
+  }
+`;
+
+export const PaginationWrapper = styled.section`
   position: relative;
   display: flex;
+  justify-content: flex-end;
+  align-items: center;
   position: sticky;
+  margin-top: 0.5em;
   top: 60px;
   z-index: 5;
 `;

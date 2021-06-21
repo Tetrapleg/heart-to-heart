@@ -13,10 +13,10 @@ import { NavButton } from "../../commonComponent/NavButton";
 import { PicturesBlockWrapper } from "../../commonComponent/PicturesBlockWrapper";
 import { TextItem } from "../../commonComponent/TextItem";
 import { HeaderTitle } from "../../commonComponent/HeaderTitle";
-import { getContentDate, getNowDate } from "../../functions/getContentDate";
+import { getContentDate, getDatePeriod, getNowDate } from "../../functions/getContentDate";
 import { ContentContainer } from "../../htmlContainer/ContentContainer";
 import { Title } from "../../commonComponent/Title";
-import { Pagination, PaginationWrapper } from "../../commonComponent/Pagination";
+import { Pagination, PaginationTitle, PaginationWrapper } from "../../commonComponent/Pagination";
 import { setFetchingBoardDataVkApi } from "../../../reducers/dataBoardVkApiReducer";
 
 const NavWrapper = styled.div`
@@ -29,7 +29,7 @@ const NavWrapper = styled.div`
 
 export const FinancialReports = () => {
   const dispatch = useDispatch();
-  const boardData = useSelector(state => state.dataBoardVkApi.boardPosts, shallowEqual);
+  const boardData = useSelector(state => state.dataBoardVkApi.boardPostsFiltered, shallowEqual);
   const isFetching = useSelector(state => state.dataBoardVkApi.isFetchingBoardDataVkApi, shallowEqual);
   const nowDate = getNowDate();
   const [idTopic, setIdTopic] = useState(null);
@@ -39,13 +39,14 @@ export const FinancialReports = () => {
 
   const fetchCount = 20;
 
-  const getTopic = (e, topic) => {
-
-    dispatch(getJsonpVkApiData({count: fetchCount, method: "board.getComments", owner_id: 124002988, requestParams: [`topic_id=${topic}`, `group_id=124002988`, "sort=desc"]}));
-    dispatch(setFetchingBoardDataVkApi(true));
-    setIdTopic(topic);
-    setPrevPageCount(1);
-    setPageCount(1);
+  const getTopic = (topic) => {
+    if(topic !== idTopic) {
+      dispatch(getJsonpVkApiData({count: fetchCount, method: "board.getComments", owner_id: 124002988, requestParams: [`topic_id=${topic}`, `group_id=124002988`, "sort=desc"]}));
+      dispatch(setFetchingBoardDataVkApi(true));
+      setIdTopic(topic);
+      setPrevPageCount(1);
+      setPageCount(1);
+    }
   };
 
   useEffect(() => {
@@ -103,17 +104,24 @@ export const FinancialReports = () => {
           <NavWrapper >
             <NavButton 
               className={idTopic === 35969996 && "active"} 
-              onClick={(e) => getTopic(e, 35969996)}
+              onClick={() => getTopic(35969996)}
               disabled={!boardData?.response}
             >Поступления</NavButton>
             <NavButton 
               className={idTopic === 35993761 && "active"} 
-              onClick={(e) => getTopic(e, 35993761)}
+              onClick={() => getTopic(35993761)}
               disabled={!boardData?.response}
             >Расходы</NavButton>
           </NavWrapper>
         </MessageWrapper>
         <PaginationWrapper >
+          {!isFetching && idTopic && <PaginationTitle >
+            {idTopic === 35969996 && "Поступления: "}
+            {idTopic === 35993761 && "Расходы: "}
+            {idTopic && <span >{getDatePeriod(boardData.messages[boardData.messages.length -1].date) + 
+              " - " + 
+              getDatePeriod(boardData.messages[0].date)}</span>}
+          </PaginationTitle>}
           {isFetching && <ElementPreloader />}
           {idTopic && boardData.response ? <Pagination 
             pages={pages}
@@ -131,8 +139,3 @@ export const FinancialReports = () => {
     </ContentContainer>
   )
 }
-
-
-// 35993761 Финансовый отчет. Расход 2017-2020
-
-// 35969996 "Финансовый отчет. Приход 2017-2020"

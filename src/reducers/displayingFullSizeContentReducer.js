@@ -14,7 +14,8 @@ export const displayingFullSizeContentReducer = (state = defaultState, action) =
   switch (action.type) {
     case SET_FULL_SIZE_PDF:
       const urlFullSize = action.payload ? 
-          `${process.env.PUBLIC_URL}/full_size_content/${action.payload}` : 
+          `/full_size_content/${action.payload}` : 
+          // `${process.env.PUBLIC_URL}/full_size_content/${action.payload}` : 
           null;
       return {
         ...state,

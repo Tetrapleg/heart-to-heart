@@ -1,4 +1,5 @@
 import { setBoardDataVkApi, setFetchingBoardDataVkApi } from "../../reducers/dataBoardVkApiReducer";
+import { setFetchingMarketDataVkApi, setMarketDataVkApi } from "../../reducers/dataMarketVkApiReducer";
 import { setFilteredDataVkApi } from "../../reducers/dataVkApiReducer";
 
 const getCurrentItem = (item) => {
@@ -26,7 +27,8 @@ const getPhotoParams = (arr, i, fullSize) => {
 };
 
 const getVideoParams = (arr, i) => {
-  const firstElem = arr.find(elem => !elem.with_padding && +elem.width === 320);
+  const firstElem = arr.find(elem => !elem.with_padding && +elem.width === 320) ||
+                    arr.find(elem => +elem.width === 320);
   const secondElem = arr.find(elem => +elem.width === 160 || +elem.width === 130);
   if(i < 3) {
     return ({
@@ -59,13 +61,14 @@ const getDocParams = (arr, i) => {
 
 const getAttachParams = (item, i) => {
   if(item.type === "photo") {
-    const photoParams = getPhotoParams(item.photo.sizes, i, false);
-    const fullSizeUrl = getPhotoParams(item.photo.sizes, i, true).url;
+    const sizesArr = item.photo?.sizes || item.sizes
+    const photoParams = getPhotoParams(sizesArr, i, false);
+    const fullSizeUrl = getPhotoParams(sizesArr, i, true).url;
 
     return ({
       url: photoParams.singleParam.url,
       fullSizeUrl: fullSizeUrl,
-      descr: item.photo.text,
+      descr: item.photo ? item.photo.text : "",
       width: photoParams.singleParam.width,
       height: photoParams.singleParam.height,
       aspectRatio: Math.round(photoParams.singleParam.height * 100 / photoParams.singleParam.width) / 100,
@@ -96,9 +99,9 @@ const getAttachParams = (item, i) => {
     });
   } else if(item.type === "doc") {
 
-    if(item.doc.ext === "pdf") {
+    if(item.doc.ext === "pdf" || item.doc.ext === "docx") {
       return ({
-        ext: "pdf",
+        ext: `${item.doc.ext}`,
         url: item.doc.url,
         fullSizeUrl: item.doc.url,
         descr: item.doc.title,
@@ -204,7 +207,7 @@ const getCurrentAttachments = (attachments, documentWidth) => {
 const getCurrentMessage = (array) => {
   const filteredTitle = array.find(title => /[0-9а-яёa-z\s]+/iu.test(title));
   const filteredMessage = array.slice(array.indexOf(filteredTitle) + 1);
-  const title = filteredTitle ? filteredTitle.replace(/[^0-9а-яёa-z\s]+/iu, "") : "";
+  const title = filteredTitle ? filteredTitle : "";
   const text = filteredMessage.map(item => item.replace(/([^0-9а-яёa-z\s]{7})+/iug, ""));
 
   return {title, text};
@@ -214,29 +217,51 @@ export const filteringDataVkApi = (filtered, dispatch, method) => {
   const documentWidth = document.documentElement.clientWidth - 52;
   const dataWasFiltered = {};
   dataWasFiltered.response = filtered.response ? 1 : 0;
-  console.log(filtered);
+  // console.log(filtered);
   // debugger;
   if(filtered.response) {
     dataWasFiltered.count = filtered.response.count;
     dataWasFiltered.messages = filtered.response.items.map(item => {
       const currentItem = getCurrentItem(item);
-      const arrOfText = currentItem.text.split('\n');
+      const arrOfText = currentItem.text?.split('\n') || currentItem.description.split('\n');
   
-      return ({
-        id: currentItem.id, 
-        attachments: currentItem.attachments ? 
-                    getCurrentAttachments(currentItem.attachments, documentWidth) : 
-                    null,
-        date: currentItem.date,
-        message: getCurrentMessage(arrOfText),
-        documentWidth: documentWidth,
-      });
+      if(currentItem.hasOwnProperty("text")) {
+        return ({
+          id: currentItem.id, 
+          attachments: currentItem.attachments ? 
+                      getCurrentAttachments(currentItem.attachments, documentWidth) : 
+                      null,
+          date: currentItem.date,
+          message: getCurrentMessage(arrOfText),
+          documentWidth: documentWidth,
+        });
+      } else if(currentItem.hasOwnProperty("description")) {
+        currentItem.photos.forEach(item => item.type = "photo");
+
+        return ({
+          id: currentItem.id, 
+          attachments: currentItem.photos ? 
+                      getCurrentAttachments(currentItem.photos, documentWidth) : 
+                      null,
+          message: getCurrentMessage(arrOfText),
+          nickname: currentItem.sku,
+          animalGender: currentItem.title.split(" ").slice(-1).join(""),
+          age: currentItem.price.amount !== "" ?
+                (currentItem.price.amount / 100).toString().split(".") : "-",
+          documentWidth: documentWidth,
+        });
+      }
+      return null;
     });
   } else {
     dataWasFiltered.messages = filtered.error;
   }
 
   switch(method) {
+    case "market.search":
+      dispatch(setMarketDataVkApi(dataWasFiltered));
+      dispatch(setFetchingMarketDataVkApi(false));
+      break;
     case "board.getComments":
       dispatch(setBoardDataVkApi(dataWasFiltered));
       dispatch(setFetchingBoardDataVkApi(false));

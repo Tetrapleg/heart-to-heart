@@ -8,10 +8,10 @@ export const getContentDate = (date, { nowDateMs, nowYear, nowHour, nowMinutes, 
   const messageMinutes = new Date(date * 1000).getMinutes();
 
   const secondsToday = nowSeconds + nowMinutes * 60 + nowHour * 3600;
-  const differentDate = (nowDateMs - date * 1000) / 1000;
-
+  const differentDate = Math.abs((nowDateMs - date * 1000) / 1000);
+ 
   if(differentDate < 3600) {
-    const minutesAgo = Math.floor(differentDate / 60);
+    const minutesAgo = Math.ceil(differentDate / 60);
 
     if(minutesAgo < 5 || minutesAgo > 20) {
       switch(minutesAgo % 10) {
@@ -53,6 +53,11 @@ export const getContentDate = (date, { nowDateMs, nowYear, nowHour, nowMinutes, 
                                                   hour: 'numeric',
                                                   minute: 'numeric'})}`;
 };
+
+export const getDatePeriod = (date) => new Date(date*1000).toLocaleString("ru", {year: 'numeric',
+                                                                            month: 'long',
+                                                                            day: 'numeric',
+                                                                          });
 
 export const getNowDate = () => {
   return {

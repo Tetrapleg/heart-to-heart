@@ -4,6 +4,7 @@ import { setFullSizeImg, setFullSizePDF, setFullSizeVideo } from '../../reducers
 import preloaderSvg from './../../images/preloaderSvg.svg';
 import playButton from './../../images/play_button.png';
 import { getVideoDuration } from '../functions/getVideoDuration';
+import { LinkHref } from './CustomLinks';
 
 const Figure = styled.figure`
   font-size: 1rem;
@@ -14,7 +15,7 @@ const Figure = styled.figure`
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 0.5em;
+  padding: ${({ props }) => props.width < 110 ? 0.3 : 0.5}em;
   height: fit-content;
   cursor: ${({ props }) => props.fullSizeTypeFile === "video" ? "pointer" : "zoom-in"};
   ${({ props }) => props.figureStyle ? props.figureStyle.join(';') : undefined}
@@ -96,8 +97,8 @@ const ControllSmallSizeVideo = styled.span`
   background: url(${playButton}) center no-repeat;
   background-size: 15%;
   background-position-x: 0.4em;
-  bottom: 1em;
-  right: 1em;
+  bottom: ${({ ...props }) => props.maxSmallSize ? 0 : "1em"};
+  right: ${({ ...props }) => props.maxSmallSize ? 0 : "1em"};
   border-radius: 0.2em;
   font-weight: 500;
   color: #fff;
@@ -139,28 +140,33 @@ export const FigureImg = ({ ...props }) => {
     >
       <ImgWrapper >
         {props.ext ? 
-        <PdfInner  
-          props={props}
-        >
-          <iframe 
-          src={props.url}
-          title="pdf"
-          width={props.width}
-          height={props.height}
-          frameBorder="0" 
-          allowFullScreen></iframe>
-        </PdfInner> :
-        <BackgroundImage 
-          props={props}
-        />}
+          props.ext === "pdf" ? <PdfInner  
+              props={props}
+            >
+              <iframe 
+              src={props.url}
+              title="pdf"
+              width={props.width}
+              height={props.height}
+              frameBorder="0" 
+              allowFullScreen></iframe>
+            </PdfInner> :
+            <LinkHref href={props.url} target="_blank" rel="noreferrer">Ссылка</LinkHref>
+           :
+          <BackgroundImage 
+            props={props}
+          />
+        }
         {typeFile === "video" && <>
-            {props.serialNumber < 3 ? 
+            {props.width > 200 ? 
               <>
                 <ControlVideo />
                 <DurationVideo >{getVideoDuration(props.duration)}</DurationVideo>
               </> :
               <>
-                <ControllSmallSizeVideo >{getVideoDuration(props.duration)}</ControllSmallSizeVideo>
+                <ControllSmallSizeVideo 
+                  maxSmallSize={props.width < 110}
+                >{getVideoDuration(props.duration)}</ControllSmallSizeVideo>
               </>
             }
         </>}

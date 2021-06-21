@@ -1,5 +1,6 @@
 
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { ButtonPulse } from '../../animationElements/ButtonPulse';
 import { AsideLeft } from '../aside/AsideLeft';
@@ -15,6 +16,7 @@ const AsideWrapper = styled.div`
 
 export const PageWithAside = ({ children }) => {
   const [openModal, setOpenModal] = useState(false);
+  const location = useLocation();
 
   const toggleModal = () => {
     setOpenModal(!openModal);
@@ -22,9 +24,13 @@ export const PageWithAside = ({ children }) => {
 
   return (
     <AsideWrapper >
-      <AsideLeft />
+      <AsideLeft 
+        location={location.key}
+      />
       {children}
-      <AsideRight />
+      <AsideRight 
+        location={location.key}
+      />
       <ButtonPulse toggleModal={toggleModal}/>
       {openModal &&
         <ModalItemForm

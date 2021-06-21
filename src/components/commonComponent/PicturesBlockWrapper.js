@@ -45,6 +45,7 @@ export const PicturesBlockWrapper = ({ attachments }) => {
                       `height: ${item.params.height}px`]}
           figcaptionStyle={[`width: ${item.params.width}px`]}
           ext={item.params.ext}
+          width={item.params.width}
         />
       )}
     </LargePicturesBlock>
@@ -64,6 +65,7 @@ export const PicturesBlockWrapper = ({ attachments }) => {
                         `height: ${item.params.height}px`]}
             figcaptionStyle={[`width: ${item.params.width}px`]}
             ext={item.params.ext}
+            width={item.params.width}
           />
         )}
       </SmallPicturesBlock>}

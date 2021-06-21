@@ -28,7 +28,7 @@ export const NewsAboutUs = () => {
     if(postsCount > 0 && postsCount === localPostsCount) {
       dispatch(getJsonpVkApiData({count: 10, offset: pageNumber}));
     }
-  }, [postsCount, localPostsCount, dispatch, pageNumber]);
+  }, [postsCount, localPostsCount, dispatch, pageNumber, dataWallVk]);
 
   useEffect(() => {
     const elem = newsBlockRef.current;
