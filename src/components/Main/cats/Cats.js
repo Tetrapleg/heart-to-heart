@@ -153,8 +153,6 @@ export const Cats = () => {
     const dropElement = dropListRef.current;
 
     if(dropElement) {
-      console.dir(dropElement);
-      console.log(dropElement.clientHeight, dropElement.offsetHeight, dropElement.scrollHeight);
     }
   }, [dropListRef]);
 
@@ -164,7 +162,7 @@ export const Cats = () => {
 
     return (
       <>
-        <HeaderTitle >{item.nickname} {ageAnimalsCalculate(item.age)}</HeaderTitle>
+        <HeaderTitle >{item.nickname} {ageAnimalsCalculate(item.age, item.ageDateDifference)}</HeaderTitle>
         <DividingLine />
         <TextItem >{message.title}</TextItem>
         {message.text.map((paragraph, index) => index < 10 && <TextItem key={index}>{paragraph}</TextItem>)}

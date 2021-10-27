@@ -133,7 +133,6 @@ export const Dogs = () => {
 
   useEffect(() => {
     if(!isFetching && pageCount !== prevPageCount) {
-      console.log("page change fetch: ", queryStrGender, queryStrAge);
       dispatch(getJsonpVkApiData({offset: (pageCount - 1) * fetchCount, count: fetchCount, method: "market.search", requestParams: ["extended=1", queryStrGender, queryStrAge]}));
       dispatch(setFetchingMarketDataVkApi(true));
       setPrevPageCount(pageCount);
@@ -145,7 +144,6 @@ export const Dogs = () => {
   }, [marketData]);
 
   useEffect(() => {
-    console.log("start fetch");
     dispatch(setMarketDataVkApi(null));
     dispatch(getJsonpVkApiData({count: fetchCount, offset: 0, method: "market.search", requestParams: ["extended=1", "q=собаки"]}));
   }, [dispatch]);
@@ -153,19 +151,16 @@ export const Dogs = () => {
   useEffect(() => {
     const dropElement = dropListRef.current;
 
-    if(dropElement) {
-      console.dir(dropElement);
-      console.log(dropElement.clientHeight, dropElement.offsetHeight, dropElement.scrollHeight);
-    }
+    if(dropElement) {}
   }, [dropListRef]);
 
   const Message = ({ item }) => {
     const [hiddenOn, setHiddenOff] = useState(true);
     const message = item.message;
-    
+ 
     return (
       <>
-        <HeaderTitle >{item.nickname} {ageAnimalsCalculate(item.age)}</HeaderTitle>
+        <HeaderTitle >{item.nickname} {ageAnimalsCalculate(item.age, item.ageDateDifference)}</HeaderTitle>
         <DividingLine />
         <TextItem >{message.title}</TextItem>
         {message.text.map((paragraph, index) => index < 10 && <TextItem key={index}>{paragraph}</TextItem>)}

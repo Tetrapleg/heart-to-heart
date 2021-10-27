@@ -6,6 +6,14 @@ import { TextItem } from '../../commonComponent/TextItem';
 import { HeaderTitle } from '../../commonComponent/HeaderTitle';
 import { ContentContainer } from '../../htmlContainer/ContentContainer';
 import { MessageWrapper } from '../../commonComponent/MessageWrapper';
+import { FigureImg } from '../../commonComponent/FigureImg';
+import beforeImg from './../../../images/before_img.jpg';
+import beforeImg1 from './../../../images/before_img1.jpg';
+import beforeImg2 from './../../../images/before_img2.jpg';
+import beforeImg3 from './../../../images/before_img3.jpg';
+import beforeImg4 from './../../../images/before_img4.jpg';
+import beforeImg5 from './../../../images/before_img5.jpg';
+import beforeImg6 from './../../../images/before_img6.jpg';
 
 
 export const BeforeYouMakeFriend = () => (
@@ -20,6 +28,18 @@ export const BeforeYouMakeFriend = () => (
         <TextItem >
           Принимая в семью животное, нужно тоже быть подготовленным, ведь собака или кошка, как и ребенок, нуждаются в Вашей любви, заботе и чувстве безопасности. Животные живут долго – Вы готовы взять «ребенка» на ближайшие 15 лет?
         </TextItem>
+        <FigureImg 
+          fullSizeTypeFile="photo"
+          fullSizeTypeName="/full_size_content/before_img_fullsize.jpg"
+          url={beforeImg}
+          descr=""
+          figureStyle={document.documentElement.clientWidth > 450 ? ["float: left;",
+                      "margin: 1.5em;"] : ["margin: 0.5em auto;",
+                      "width: fit-content;"]}
+          bgImgStyle={document.documentElement.clientWidth > 360 ? ["width: 300px;",
+                      "height: 200px;"] : [`width: ${document.documentElement.clientWidth - 60}px;`,
+                      `height: ${(document.documentElement.clientWidth - 60) * 2 / 3}px;`]}
+        />
         <TextItem >
           Заранее определитесь со своими возможностями, обстоятельствами, загляните наперёд, взвесьте все «за» и «против».
         </TextItem>
@@ -39,7 +59,22 @@ export const BeforeYouMakeFriend = () => (
         <HeaderTitle >2) У Вас есть дети или вы их планируете:</HeaderTitle>
         <DividingLine />
         <TextItem >
-          Объясните детям, что питомец не игрушка. Нельзя хватать, таскать его за части тела, настойчиво совать руки в пасть, пинать и т.д. Игра хороша, когда она нравится всем ее участникам.
+          Объясните детям, что питомец не игрушка.
+        </TextItem>
+        <FigureImg 
+          fullSizeTypeFile="photo"
+          fullSizeTypeName="/full_size_content/before_img1_fullsize.jpg"
+          url={beforeImg1}
+          descr=""
+          figureStyle={document.documentElement.clientWidth > 450 ? ["float: right;",
+                      "margin: 1.5em;"] : ["margin: 0.5em auto;",
+                      "width: fit-content;"]}
+          bgImgStyle={document.documentElement.clientWidth > 360 ? ["width: 300px;",
+                      "height: 200px;"] : [`width: ${document.documentElement.clientWidth - 60}px;`,
+                      `height: ${(document.documentElement.clientWidth - 60) * 2 / 3}px;`]}
+        />
+        <TextItem >
+          Нельзя хватать, таскать его за части тела, настойчиво совать руки в пасть, пинать и т.д. Игра хороша, когда она нравится всем ее участникам.
         </TextItem>
         <TextItem >
           Если Вы планируете ребенка, то хорошо подумайте, а хватит ли Вам времени и сил на четвероногого друга?
@@ -57,6 +92,18 @@ export const BeforeYouMakeFriend = () => (
         <TextItem >
           Если у Вас нестабильная квартирная, семейная или профессиональная ситуация, подумайте, сможете ли Вы заниматься животным, не только сейчас, но также на протяжении многих лет. Уверены, что при переезде на другую съемную квартиру сможете забрать с собой питомца?
         </TextItem>
+        <FigureImg 
+          fullSizeTypeFile="photo"
+          fullSizeTypeName="/full_size_content/before_img2_fullsize.jpg"
+          url={beforeImg2}
+          descr=""
+          figureStyle={document.documentElement.clientWidth > 450 ? ["float: left;",
+                      "margin: 1.5em;"] : ["margin: 0.5em auto;",
+                      "width: fit-content;"]}
+          bgImgStyle={document.documentElement.clientWidth > 360 ? ["width: 300px;",
+                      "height: 200px;"] : [`width: ${document.documentElement.clientWidth - 60}px;`,
+                      `height: ${(document.documentElement.clientWidth - 60) * 2 / 3}px;`]}
+        />
         <HeaderTitle >5) У Вас активный образ жизни или, скорее, спокойный:</HeaderTitle>
         <DividingLine />
         <TextItem >
@@ -75,6 +122,18 @@ export const BeforeYouMakeFriend = () => (
         <TextItem >
           Если Вы готовы взять домой нового члена семьи, все домочадцы должны участвовать в его выборе и принимать совместное решение.
         </TextItem>
+        <FigureImg 
+          fullSizeTypeFile="photo"
+          fullSizeTypeName="/full_size_content/before_img3_fullsize.jpg"
+          url={beforeImg3}
+          descr=""
+          figureStyle={document.documentElement.clientWidth > 450 ? ["float: right;",
+                      "margin: 1.5em;"] : ["margin: 0.5em auto;",
+                      "width: fit-content;"]}
+          bgImgStyle={document.documentElement.clientWidth > 360 ? ["width: 300px;",
+                      "height: 225px;"] : [`width: ${document.documentElement.clientWidth - 60}px;`,
+                      `height: ${(document.documentElement.clientWidth - 60) * 2.25 / 3}px;`]}
+        />
         <TextItem >
           Если же хотите подарить животное, то обязательно выясните, готова ли принимающая сторона к таким подаркам?
         </TextItem>
@@ -107,6 +166,18 @@ export const BeforeYouMakeFriend = () => (
         <TextItem >
           ● Случается, что кошки при появлении ребенка могут начать ходить в туалет на его кровать (редко, но бывают случаи). Здесь будет необходима консультация зоопсихологов или иных специалистов.
         </TextItem>
+        <FigureImg 
+          fullSizeTypeFile="photo"
+          fullSizeTypeName="/full_size_content/before_img4_fullsize.jpg"
+          url={beforeImg4}
+          descr=""
+          figureStyle={document.documentElement.clientWidth > 450 ? ["float: left;",
+                      "margin: 1.5em;"] : ["margin: 0.5em auto;",
+                      "width: fit-content;"]}
+          bgImgStyle={document.documentElement.clientWidth > 360 ? ["width: 300px;",
+                      "height: 169px;"] : [`width: ${document.documentElement.clientWidth - 60}px;`,
+                      `height: ${(document.documentElement.clientWidth - 60) * 1.69 / 3}px;`]}
+        />
         <TextItem >
           ● Для собаки нужно найти спокойное место, где она сможет «спрятаться». Понаблюдайте, где она себя чувствует наиболее комфортно и безопасно, пусть это будет ее территорией.
         </TextItem>
@@ -134,6 +205,18 @@ export const BeforeYouMakeFriend = () => (
         <TextItem >
           Отпускать без поводка можно питомца только в местах, где нет рядом проезжей части, агрессивных собак или скопления бездомных животных, и, если Вы уверены, что Ваш питомец сам никому не нанесет вреда. Опять же, это можно делать только в Вашем присутствии, никаких самовыгулов быть не должно.
         </TextItem>
+        <FigureImg 
+          fullSizeTypeFile="photo"
+          fullSizeTypeName="/full_size_content/before_img5_fullsize.jpg"
+          url={beforeImg5}
+          descr=""
+          figureStyle={document.documentElement.clientWidth > 450 ? ["float: right;",
+                      "margin: 1.5em;"] : ["margin: 0.5em auto;",
+                      "width: fit-content;"]}
+          bgImgStyle={document.documentElement.clientWidth > 360 ? ["width: 300px;",
+                      "height: 200px;"] : [`width: ${document.documentElement.clientWidth - 60}px;`,
+                      `height: ${(document.documentElement.clientWidth - 60) * 2 / 3}px;`]}
+        />
         <TextItem >
           ● Собаки обожают ритуалы и повторяющиеся ситуации. Если на начальном этапе Вы будете придерживаться четких правил, обучение и адаптация собаки к новым условиям будут проходить гораздо легче.
         </TextItem>
@@ -160,6 +243,18 @@ export const BeforeYouMakeFriend = () => (
         <TextItem >
           Животное – это не вещь! Ему нужна любовь и забота, и мы должны относиться к нему, как к члену семьи, с пониманием его инстинктов и природы, а, также, окружая заботой и в болезни, и в старости до конца его дней.
         </TextItem>
+        <FigureImg 
+          fullSizeTypeFile="photo"
+          fullSizeTypeName="/full_size_content/before_img6_fullsize.jpg"
+          url={beforeImg6}
+          descr=""
+          figureStyle={document.documentElement.clientWidth > 450 ? ["float: left;",
+                      "margin: 1.5em;"] : ["margin: 0.5em auto;",
+                      "width: fit-content;"]}
+          bgImgStyle={document.documentElement.clientWidth > 360 ? ["width: 300px;",
+                      "height: 200px;"] : [`width: ${document.documentElement.clientWidth - 60}px;`,
+                      `height: ${(document.documentElement.clientWidth - 60) * 2 / 3}px;`]}
+        />
         <TextItem >
           Правильный уход за животным стоит денег. Нужно покупать корм, водить к ветеринару, систематически прививать и обрабатывать от паразитов, приобретать различную амуницию (шлейку, поводок и многое другое). Все это – не дешево, но обязательно для содержания животного.
         </TextItem>

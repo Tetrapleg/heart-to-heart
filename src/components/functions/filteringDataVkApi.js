@@ -1,5 +1,6 @@
 import { setBoardDataVkApi, setFetchingBoardDataVkApi } from "../../reducers/dataBoardVkApiReducer";
 import { setFetchingMarketDataVkApi, setMarketDataVkApi } from "../../reducers/dataMarketVkApiReducer";
+import { setFetchingPhotoalbumDataVkApi, setPhotoalbumDataVkApi } from "../../reducers/dataPhotoAlbumVkApiReducer";
 import { setFilteredDataVkApi } from "../../reducers/dataVkApiReducer";
 
 const getCurrentItem = (item) => {
@@ -60,6 +61,11 @@ const getDocParams = (arr, i) => {
 };
 
 const getAttachParams = (item, i) => {
+  if(!i) {
+    // const photoParams = getPhotoParams(item, false);
+    // const fullSizeUrl = getPhotoParams(item, true).url;
+  }
+
   if(item.type === "photo") {
     const sizesArr = item.photo?.sizes || item.sizes
     const photoParams = getPhotoParams(sizesArr, i, false);
@@ -142,13 +148,7 @@ const getAttachParams = (item, i) => {
 };
 
 const specifyingDimensions = (maxHeightOfLargeImg, maxHeightOfSmallImg, documentWidth, filteredAttachments) => {
-  // console.log("maxHeightOfLargeImg:", maxHeightOfLargeImg, "  ",
-  // "maxHeightOfSmallImg:", maxHeightOfSmallImg, "  ",
-  // "documentMaxWidth:", documentWidth);
   const largeContentArr = filteredAttachments.slice(0, 3);
-  // const smallContentArr = filteredAttachments.slice(3);
-
-  // console.log(largeContentArr.reduce((acc, item) => acc + item.params.height, 0));
 
   let exceedingTheWidth = false;
   largeContentArr.forEach((item) => {
@@ -200,7 +200,7 @@ const getCurrentAttachments = (attachments, documentWidth) => {
                       maxHeightOfSmallImg,
                       documentWidth,
                       filteredAttachments);
-  // console.log(updatedDimensions);
+  
   return filteredAttachments;
 };
 
@@ -217,20 +217,26 @@ export const filteringDataVkApi = (filtered, dispatch, method) => {
   const documentWidth = document.documentElement.clientWidth - 52;
   const dataWasFiltered = {};
   dataWasFiltered.response = filtered.response ? 1 : 0;
-  // console.log(filtered);
-  // debugger;
+
   if(filtered.response) {
     dataWasFiltered.count = filtered.response.count;
     dataWasFiltered.messages = filtered.response.items.map(item => {
       const currentItem = getCurrentItem(item);
       const arrOfText = currentItem.text?.split('\n') || currentItem.description.split('\n');
-  
+
       if(currentItem.hasOwnProperty("text")) {
+        let attachments = null;
+
+        if(method === "photos.get") {
+          currentItem.type = "photo";
+          attachments = getAttachParams(currentItem, 1);
+        }
+
         return ({
           id: currentItem.id, 
           attachments: currentItem.attachments ? 
                       getCurrentAttachments(currentItem.attachments, documentWidth) : 
-                      null,
+                      attachments,
           date: currentItem.date,
           message: getCurrentMessage(arrOfText),
           documentWidth: documentWidth,
@@ -249,6 +255,9 @@ export const filteringDataVkApi = (filtered, dispatch, method) => {
           age: currentItem.price.amount !== "" ?
                 (currentItem.price.amount / 100).toString().split(".") : "-",
           documentWidth: documentWidth,
+          ageDateDifference: currentItem.weight ? [String(currentItem.weight).slice(0, 4), 
+                                                    String(currentItem.weight).slice(4, 6),
+                                                  ] : null,
         });
       }
       return null;
@@ -262,6 +271,10 @@ export const filteringDataVkApi = (filtered, dispatch, method) => {
       dispatch(setMarketDataVkApi(dataWasFiltered));
       dispatch(setFetchingMarketDataVkApi(false));
       break;
+    case "photos.get":
+      dispatch(setPhotoalbumDataVkApi(dataWasFiltered));
+      dispatch(setFetchingPhotoalbumDataVkApi(false));
+      break;
     case "board.getComments":
       dispatch(setBoardDataVkApi(dataWasFiltered));
       dispatch(setFetchingBoardDataVkApi(false));
@@ -269,8 +282,4 @@ export const filteringDataVkApi = (filtered, dispatch, method) => {
     default:
       dispatch(setFilteredDataVkApi(dataWasFiltered));
   }
-  
-  // console.log("data: ", filtered);
-  // console.log("data was filtered: ", dataWasFiltered);
-  // console.log("sizes: ", documentMaxWidth);
 };

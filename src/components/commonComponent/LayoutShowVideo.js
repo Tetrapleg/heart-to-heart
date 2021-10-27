@@ -63,7 +63,7 @@ export const LayoutShowVideo = ({ idVideo }) => {
   const iframeOnLoad = () => {
     setLoaded(false);
   };
-  // console.log(urlVideo);
+
   return (
     <Overlay
       onClick={closeModalVideo}>

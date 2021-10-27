@@ -18,11 +18,11 @@ export const dbMenu = {
 					link: 'financial_reports_on_donations',
 					icon: 'FinancialReportsSvg',
 				},
-				{
-					menuItem: 'Контактная информация',
-					link: 'contact_information',
-					icon: 'ContactInformationSvg',
-				},
+				// {
+				// 	menuItem: 'Контактная информация',
+				// 	link: 'contact_information',
+				// 	icon: 'ContactInformationSvg',
+				// },
 			]
 		},
 		takeAPet:  {

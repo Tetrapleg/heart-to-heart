@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { setFullSizeImg, setFullSizePDF, setFullSizeVideo } from '../../reducers/displayingFullSizeContentReducer';
+import { setFullSizeImg, setFullSizePDF, setFullSizePhotoalbum, setFullSizeVideo } from '../../reducers/displayingFullSizeContentReducer';
 import preloaderSvg from './../../images/preloaderSvg.svg';
 import playButton from './../../images/play_button.png';
 import { getVideoDuration } from '../functions/getVideoDuration';
@@ -18,12 +18,14 @@ const Figure = styled.figure`
   padding: ${({ props }) => props.width < 110 ? 0.3 : 0.5}em;
   height: fit-content;
   cursor: ${({ props }) => props.fullSizeTypeFile === "video" ? "pointer" : "zoom-in"};
-  ${({ props }) => props.figureStyle ? props.figureStyle.join(';') : undefined}
+  ${({ props }) => props.figureStyle ? props.figureStyle.join('') : undefined}
 
-  /* @media(max-width: 450px) {
-    padding: 0;
-    margin: 0;
-  } */
+  @media(max-width: 450px) {
+    /* margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px; */
+  }
 `;
 
 const ImgWrapper = styled.div`
@@ -38,7 +40,7 @@ const BackgroundImage = styled.div`
   background-origin: content-box;
   position: relative;
   /* max-width: ${document.documentElement.clientWidth - 65}px; */
-  ${({ props }) => props.bgImgStyle ? props.bgImgStyle.join(';') : undefined}
+  ${({ props }) => props.bgImgStyle ? props.bgImgStyle.join('') : undefined}
 `;
 
 const PdfInner = styled.div`
@@ -112,7 +114,7 @@ const Figcaption = styled.figcaption`
   font-size: 0.9em;
   word-wrap: break-word;
   max-width: ${document.documentElement.clientWidth - 65}px;
-  ${({ props }) => props.figcaptionStyle ? props.figcaptionStyle.join(';') : undefined}
+  ${({ props }) => props.figcaptionStyle ? props.figcaptionStyle.join('') : undefined}
 `;
 
 export const FigureImg = ({ ...props }) => {
@@ -131,9 +133,11 @@ export const FigureImg = ({ ...props }) => {
               );
     } else if(typeFile === "video") {
       dispatch(setFullSizeVideo(props.fullSizeTypeName));
+    } else if(typeFile === "photoalbum") {
+      dispatch(setFullSizePhotoalbum(props.fullSizeTypeName));
     }
   };
-//  console.log(props);
+
   return(<Figure 
       onClick={openFullSizeModal}
       props={props}

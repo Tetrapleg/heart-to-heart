@@ -29,7 +29,8 @@ const AsideContentWrapper = styled.section`
     switch(valuePosition[0]) {
       case "sticky": 
         return `position: sticky;
-                top: 3em;`;
+                top: 3em;
+                margin-top: 3em`;
       case "fixedBottom": 
         return `position: fixed;
                 bottom: 1em;
@@ -130,7 +131,6 @@ export const Aside = ({ children, ...props }) => {
         } else if(contentHeight <= deviceHeight && valuePosition[0] !== "sticky") {
           setValuePosition(["sticky"]);
         }
-        // console.log("wrapper: ", wrapperHeight, "content: ", contentHeight);
       }
     };
 

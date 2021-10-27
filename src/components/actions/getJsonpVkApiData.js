@@ -10,36 +10,16 @@ export const getJsonpVkApiData = ({ method = "wall.get", owner_id = '-124002988'
   const jsonpThen = (jsonpRes, dispatch) => {
     switch(method) {
       case "video.get":
-        if (jsonpRes.error) {
           dispatch(setUrlFullSizeVideo(jsonpRes));
-        } else {
-          dispatch(setUrlFullSizeVideo(jsonpRes));
-        }
         break;
       case "board.getComments":
-        if (jsonpRes.error) {
           filteringDataVkApi(jsonpRes, dispatch, method);
-        } else {
-          filteringDataVkApi(jsonpRes, dispatch, method);
-        }
         break;
-      case "market.get":
-        if (jsonpRes.error) {
-          console.log(jsonpRes);
-          // filteringDataVkApi(jsonpRes, dispatch, method);
-        } else {
-          console.log(jsonpRes);
-          // filteringDataVkApi(jsonpRes, dispatch, method);
-        }
+      case "photos.get":
+          filteringDataVkApi(jsonpRes, dispatch, method);
         break;
       case "market.search":
-        if (jsonpRes.error) {
-          // console.log(jsonpRes);
           filteringDataVkApi(jsonpRes, dispatch, method);
-        } else {
-          // console.log(jsonpRes);
-          filteringDataVkApi(jsonpRes, dispatch, method);
-        }
         break;
       default:    
         if (jsonpRes.error) {

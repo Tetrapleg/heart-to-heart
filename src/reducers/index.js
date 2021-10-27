@@ -6,12 +6,14 @@ import { displayingFullSizeContentReducer } from './displayingFullSizeContentRed
 import { dataVkApiReducer } from './dataVkApiReducer';
 import { dataBoardVkApiReducer } from './dataBoardVkApiReducer';
 import { dataMarketVkApiReducer } from './dataMarketVkApiReducer';
+import { dataPhotoAlbumVkApiReducer } from './dataPhotoAlbumVkApiReducer';
 
 const rootReducer = combineReducers({
   fullSizeContent: displayingFullSizeContentReducer,
   dataVkApi: dataVkApiReducer,
   dataBoardVkApi: dataBoardVkApiReducer,
   dataMarketVkApi: dataMarketVkApiReducer,
+  dataPhotoAlbumVkApi: dataPhotoAlbumVkApiReducer,
 });
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))

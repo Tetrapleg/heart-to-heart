@@ -6,6 +6,7 @@ const Text = styled.p`
   line-height: 1.3;
   font-weight: 300;
   word-wrap: break-word;
+  margin-top: 0.5em;
 `;
 
 export const TextItem = ({ children }) => (

@@ -278,7 +278,6 @@ export const NavMenu = ({ scrollTop }) => {
         }
 
         if(navMenuList[navMenuList.length - 1].style.display === 'none' && stateNavDropMenu) {
-          console.log(navMenuList[navMenuList.length - 1].style.display);
           setStateNavDropMenu(!stateNavDropMenu);
         }
 
@@ -401,14 +400,14 @@ export const NavMenu = ({ scrollTop }) => {
                 </IconSpan>
                 <TextSpan>Вы столкнулись с проблемой</TextSpan>
               </NavMenuLi>
-              <NavMenuLi onClick={closeNavBar}>
+              {/* <NavMenuLi onClick={closeNavBar}>
                 <Link to='/useful_information'>
                   <IconSpan>
                     <DunnoSvg />
                   </IconSpan>
                   <TextSpan>Полезная информация</TextSpan>
                 </Link>
-              </NavMenuLi>
+              </NavMenuLi> */}
               <NavMenuLi onClick={closeNavBar}>
                 <Link to='/help_for_animals'>
                   <IconSpan>

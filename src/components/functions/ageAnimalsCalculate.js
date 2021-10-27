@@ -1,4 +1,8 @@
-export const ageAnimalsCalculate = (arr) => {
+export const ageAnimalsCalculate = (arr, ageDateDifference) => {
+
+  const nowYear = new Date().getFullYear();
+  const nowMonth = new Date().getMonth() + 1;
+
   const yearStr = (year => {
     if(year) {
       if(year % 10 === 1 && year !== 11) {
@@ -23,8 +27,21 @@ export const ageAnimalsCalculate = (arr) => {
     return null;
   });
 
-  const yearString = yearStr(arr[0] - 1);
-  const monthString = monthStr(arr[1]);
+  let yearString = 0;
+  let monthString = 0;
 
-  return `(${yearString ? yearString : ""}${monthString ? ` ${monthString}` : ""})`;
+  if(ageDateDifference){
+    const sumAge = (+arr[0] - 1) * 12 + (arr[1] ? +arr[1] : 0);
+    const reallyAge = (nowYear - ageDateDifference[0]) * 12 + nowMonth - ageDateDifference[1] + sumAge;
+    console.log(arr, ageDateDifference);
+    console.log(reallyAge);
+    console.log(Number(arr[1]));
+    yearString = yearStr(Math.floor(reallyAge / 12));
+    monthString = monthStr(reallyAge % 12);
+  } else {
+    yearString = yearStr(arr[0] - 1);
+    monthString = monthStr(arr[1]);
+  }
+
+  return `(${yearString ? monthString ? yearString + " " : yearString : ""}${monthString ? monthString : ""})`;
 };

@@ -73,6 +73,12 @@ const EmailLink = styled(YandexShareTitle)`
   font-size: 1em;
   font-weight: 300;
   padding-left: 1em;
+  line-height: 1.5em;
+
+  & span {
+    display: block;
+    padding-left: 5.5em;
+  }
   
   @media (max-width: 450px) {
     padding-top: 0.5em;
@@ -107,7 +113,7 @@ export const Footer = () => {
             <OfferLink 
               onClick={() => dispatch(setFullSizePDF("offer_fullsize.pdf"))}
             >Договор публичной оферты</OfferLink>
-            <EmailLink >Наш e-mail: serdcemkserdcy@yandex.ru</EmailLink>
+            <EmailLink >Наш e-mail: serdcemkserdcy@yandex.ru,<span>Zhmozoko@mail.ru</span></EmailLink>
           </FooterDescrWrapper>
         </ContentContainer>
       </FooterWrapper>

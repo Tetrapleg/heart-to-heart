@@ -26,7 +26,6 @@ const SmallPicturesBlock = styled.div`
 `;
 
 export const PicturesBlockWrapper = ({ attachments }) => {
-  // console.log(attachments);
 
   return(
   <BlockWrapper >
@@ -40,10 +39,10 @@ export const PicturesBlockWrapper = ({ attachments }) => {
           fullSizeTypeName={item.params.fullSizeUrl}
           descr={item.params.descr}
           duration={item.params.duration}
-          figureStyle={["margin: 0.4em"]}
-          bgImgStyle={[`width: ${item.params.width}px`,
-                      `height: ${item.params.height}px`]}
-          figcaptionStyle={[`width: ${item.params.width}px`]}
+          figureStyle={["margin: 0.4em;"]}
+          bgImgStyle={[`width: ${item.params.width}px;`,
+                      `height: ${item.params.height}px;`]}
+          figcaptionStyle={[`width: ${item.params.width}px;`]}
           ext={item.params.ext}
           width={item.params.width}
         />
@@ -60,10 +59,10 @@ export const PicturesBlockWrapper = ({ attachments }) => {
             fullSizeTypeName={item.params.fullSizeUrl}
             descr={item.params.descr}
             duration={item.params.duration}
-            figureStyle={["margin: 0.4em"]}
-            bgImgStyle={[`width: ${item.params.width}px`,
-                        `height: ${item.params.height}px`]}
-            figcaptionStyle={[`width: ${item.params.width}px`]}
+            figureStyle={["margin: 0.4em;"]}
+            bgImgStyle={[`width: ${item.params.width}px;`,
+                        `height: ${item.params.height}px;`]}
+            figcaptionStyle={[`width: ${item.params.width}px;`]}
             ext={item.params.ext}
             width={item.params.width}
           />

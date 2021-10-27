@@ -43,6 +43,38 @@ const ImgWrapper = styled.div`
   }
 `;
 
+const MessagesWrapper = styled.div`
+  position: absolute;
+  padding: 1em;
+  font-weight: 300;
+  word-spacing: 0.15em;
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: transparent;
+  font-size: 5vmin;
+  height: 100%;
+  z-index: 1;
+  transition: all 0.3s;
+
+  &:hover {
+    color: #fff;
+    text-shadow: 1px 1px 2px rgb(0 0 0 / 50%), 0 0 0.1em red;
+    background-color: rgba(0,0,0,0.2);
+  }
+`;
+
+const MessageTitle = styled.div`
+
+`;
+
+const MessageText = styled.div`
+
+`;
+
 export const LayoutShowImg = ({ urlImg }) => {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(true);
@@ -54,7 +86,7 @@ export const LayoutShowImg = ({ urlImg }) => {
   const imgOnLoad = () => {
     setLoaded(false);
   };
-  console.log(urlImg);
+ 
   return (
     <Overlay
       onClick={closeModalImg}>
@@ -63,6 +95,15 @@ export const LayoutShowImg = ({ urlImg }) => {
       </CloseModalButtonWrapper>
       <ImgWrapper data-hidden-padding={loaded}>
         {loaded && <Preloader />}
+        {(urlImg.message?.title || 
+          (urlImg.message?.text.length && urlImg.message?.text[0])) && <MessagesWrapper>
+          <MessageTitle>
+          {urlImg.message.title}
+          </MessageTitle>
+          <MessageText>
+          {urlImg.message.text}
+          </MessageText>
+        </MessagesWrapper>}
         {urlImg.ext ?         
           <iframe 
             src={urlImg.fullSizeTypeName} 

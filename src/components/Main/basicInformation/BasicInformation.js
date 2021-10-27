@@ -6,6 +6,8 @@ import { TextItem } from '../../commonComponent/TextItem';
 import { HeaderTitle } from '../../commonComponent/HeaderTitle';
 import { ContentContainer } from '../../htmlContainer/ContentContainer';
 import certificate from './../../../images/certificate.jpg';
+import basicImg from './../../../images/basic_img.webp';
+import basicImg1 from './../../../images/basic_img1.jpg';
 import { FigureImg } from '../../commonComponent/FigureImg';
 import { MessageWrapper } from '../../commonComponent/MessageWrapper';
 
@@ -24,11 +26,11 @@ export const BasicInformation = () => (
           fullSizeTypeName="certificate"
           url={certificate}
           descr="Свидетельство о регистрации"
-          figureStyle={["float: left",
-                      "margin: 1.5em"]}
-          bgImgStyle={["width: 105px",
-                      "height: 150px"]}
-          figcaptionStyle={["width: 115px"]}
+          figureStyle={["float: left;",
+                      "margin: 1.5em;"]}
+          bgImgStyle={["width: 105px;",
+                      "height: 150px;"]}
+          figcaptionStyle={["width: 115px;"]}
         />
         <TextItem >
           13 ноября 2017 года мы зарегистрировали Железногорскую местную общественную зоозащитную организацию Курской области «Сердцем к сердцу» для возможности официально помогать животным, участвовать в благотворительных конкурсах, акциях и т.д.
@@ -38,6 +40,18 @@ export const BasicInformation = () => (
         <TextItem >
           Как и любой из вас, мы являемся обычными людьми, имеющими основную работу, семьи, своих домашних животных... Да, иногда устаем, но желание помогать и делать мир добрее придает нам сил, чтобы все свободное время посвящать братьям нашим меньшим.
         </TextItem>
+        <FigureImg 
+          fullSizeTypeFile="photo"
+          fullSizeTypeName="/full_size_content/basic_img_fullsize.webp"
+          url={basicImg}
+          descr=""
+          figureStyle={document.documentElement.clientWidth > 450 ? ["float: right;",
+                      "margin: 1.5em;"] : ["margin: 0.5em auto;",
+                      "width: fit-content;"]}
+          bgImgStyle={document.documentElement.clientWidth > 360 ? ["width: 300px;",
+                      "height: 200px;"] : [`width: ${document.documentElement.clientWidth - 60}px;`,
+                      `height: ${(document.documentElement.clientWidth - 60) * 2 / 3}px;`]}
+        />
         <TextItem >
           У нас нет работников, выезжающих в любое время суток по звонкам людей, нашедших то или иное животное. Вся помощь осуществляется только благодаря волонтерам и обычным гражданам.
         </TextItem>     
@@ -55,7 +69,19 @@ export const BasicInformation = () => (
         </TextItem>
         <TextItem >
           За годы нашей работы сотни (!) животных обрели дом. Еще большее количество получило лечение, было стерилизовано/кастрировано, вакцинировано.
-        </TextItem>
+        </TextItem>        
+        <FigureImg 
+          fullSizeTypeFile="photo"
+          fullSizeTypeName="/full_size_content/basic_img1_fullsize.jpg"
+          url={basicImg1}
+          descr=""
+          figureStyle={document.documentElement.clientWidth > 450 ? ["float: left;",
+                      "margin: 1.5em;"] : ["margin: 0.5em auto;",
+                      "width: fit-content;"]}
+          bgImgStyle={document.documentElement.clientWidth > 360 ? ["width: 300px;",
+                      "height: 200px;"] : [`width: ${document.documentElement.clientWidth - 60}px;`,
+                      `height: ${(document.documentElement.clientWidth - 60) * 2 / 3}px;`]}
+        />
         <TextItem >
           Обрати внимание, что ЖМОЗОКО «Сердцем к сердцу» является некоммерческой и негосударственной благотворительной организацией. Вся помощь бездомным животным осуществляется только благодаря пожертвованиям и неравнодушным людям!
         </TextItem>

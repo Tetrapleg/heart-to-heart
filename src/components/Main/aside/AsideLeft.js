@@ -20,7 +20,7 @@ export const AsideLeft = ({ ...props }) => {
   const dataWallVk = useSelector(state => state.dataVkApi.wallPostsFiltered, shallowEqual);
   const Message = ({ message }) => {
     const [hiddenOn, setHiddenOff] = useState(true);
-    // console.log("rerender aside");
+    
     return (
       <>
         <HeaderTitle >{message.title}</HeaderTitle>

@@ -4,6 +4,8 @@ import { TextItem } from '../../commonComponent/TextItem';
 import { HeaderTitle } from '../../commonComponent/HeaderTitle';
 import { Aside } from '../layoutMainPageComponents/Aside';
 import { AsideMessageWrapper } from './AsideLeft';
+import { FigureImg } from '../../commonComponent/FigureImg';
+import beforeAndAfter from './../../../images/beforeAndAfter.jpg';
 
 export const AsideRight = ({ ...props }) => (
   <Aside 
@@ -11,18 +13,24 @@ export const AsideRight = ({ ...props }) => (
     {...props}
   >
     <AsideMessageWrapper >
-      <HeaderTitle >Немного истории...</HeaderTitle>
+      <HeaderTitle >Защита животных</HeaderTitle>
       <DividingLine />
       <TextItem >
-        Николай Пашнин 3 дня Статья на сайте Госдумы Как закон защищает животных <LinkHref href="http://duma.gov.ru/news/51038/" target="_blank">Закон</LinkHref> в ней конкретная простая инструкция о привлечении живодеров к ответственности (начиная со слов "Если вы столкнулись с жестоким обращением с животными") призываю всех действовать по плану из статьи, это несложно и не отнимает много времени
+        На сайте Госдумы размещена статья <LinkHref href="http://duma.gov.ru/news/51038/" target="_blank">"Как закон защищает животных"</LinkHref>, в ней конкретная простая инструкция о привлечении живодеров к ответственности (начиная со слов "Если вы столкнулись с жестоким обращением с животными"), призываем всех действовать по плану из статьи, это несложно и не отнимает много времени.
       </TextItem>
     </AsideMessageWrapper>
     <AsideMessageWrapper >
-      <HeaderTitle >Немного истории...</HeaderTitle>
+      <HeaderTitle >Фото " До и После"</HeaderTitle>
       <DividingLine />
-      <TextItem >
-        В 2016 году несколько людей объединились и начали помогать бездомным животным. Так поочередно появились наши сообщества «Сердцем к сердцу» в соцсетях: <LinkHref href="https://ok.ru/group/53568865697985" target="_blank" rel="noreferrer">одноклассники</LinkHref>, <LinkHref href="https://vk.com/serdcem_k_serdcy_46" target="_blank" rel="noreferrer">ВКонтакте</LinkHref>, <LinkHref href="https://instagram.com/serdcem_k_serdcu46?igshid=1wu3d..." target="_blank" rel="noreferrer">инстаграм</LinkHref>.
-      </TextItem>
+      <FigureImg 
+          fullSizeTypeFile="photoalbum"
+          fullSizeTypeName="262478770"
+          url={beforeAndAfter}
+          descr=""
+          figureStyle={["margin: 0.2em;"]}
+          bgImgStyle={["width: 200px;",
+                      "height: 132px;"]}
+        />
     </AsideMessageWrapper>
     <AsideMessageWrapper >
       <HeaderTitle >Немного истории...</HeaderTitle>
